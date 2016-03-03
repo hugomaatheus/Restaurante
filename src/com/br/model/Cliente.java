@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 import com.br.dao.AbstractEntity;
@@ -19,6 +20,17 @@ public class Cliente extends AbstractEntity {
 	
 	@Column(nullable=false, length=100)
 	private String nome;
+	
+	@OneToOne(mappedBy="cliente")
+	private Endereco endereco;
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
 	public Long getId() {
 		return id;

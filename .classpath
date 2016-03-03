@@ -7,5 +7,17 @@
 	<classpathentry kind="lib" path="C:/Users/Hugo/Downloads/cadastroClientes/lib/hibernate-testing.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Hugo/Downloads/cadastroClientes/lib/postgresql-9.0-801.jdbc4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Hugo/Downloads/cadastroClientes/lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hugo/workspace/Restaurante/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hugo/workspace/Restaurante/lib/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hugo/workspace/Restaurante/lib/c3p0-0.9.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hugo/workspace/Restaurante/lib/cglib-2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hugo/workspace/Restaurante/lib/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hugo/workspace/Restaurante/lib/javassist-3.12.0.GA.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hugo/workspace/Restaurante/lib/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hugo/workspace/Restaurante/lib/oscache-2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hugo/workspace/Restaurante/lib/proxool-0.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hugo/workspace/Restaurante/lib/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hugo/workspace/Restaurante/lib/slf4j-log4j12-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hugo/workspace/Restaurante/lib/slf4j-simple-1.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

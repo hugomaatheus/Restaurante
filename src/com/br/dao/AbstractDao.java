@@ -1,22 +1,18 @@
 package com.br.dao;
 
-import java.lang.reflect.ParameterizedType;
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
-@SuppressWarnings("unchecked")
-public class AbstractDao <T extends AbstractEntity> {
+public abstract class AbstractDao <T extends AbstractEntity> {
 	
 	private EntityManager eM;
 	
 	public AbstractDao(EntityManager eM) {
 		this.eM = eM;
 	}
-	
-//	public T getById(T entity) {
-//		return (T)eM.find(getTypeClass(), id);
-//	}
 	
 	public void save(T entity) {
 		eM.persist(entity);
@@ -27,17 +23,22 @@ public class AbstractDao <T extends AbstractEntity> {
 	}
 	
 	public void delete(T entity) {
-		
+		entity = eM.find(getTypeClass(), entity.getId());
+		eM.remove(entity);
 	}
 	
-//	public List<T> findAll() {
-//		return eM.createQuery(("FROM " + getTypeClass().getName())).getResultlist();
-//	}
-
-	private Class<?> getTypeClass() {
-		Class<?> c = (Class<?>)((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
-		return c;
+	public T getById(Long id) {
+		return eM.find(getTypeClass(), id);
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<T> findAll() {
+		Query query = eM.createQuery(("select e from " + getTypeClass().getSimpleName()) + " p");
+		return query.getResultList();
+	}
+
+	public abstract Class<T> getTypeClass();
 	
 	
 }
