@@ -1,21 +1,11 @@
 package com.br.model;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.Embeddable;
 
-import com.br.dao.AbstractEntity;
-
-@Entity
-@SequenceGenerator(name="endereco_id", sequenceName="endereco_seq", allocationSize=1)
-public class Endereco extends AbstractEntity {
+@Embeddable
+public class Endereco {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private Long id;
 	
 	@Column(nullable=false)
 	private String rua;
@@ -30,14 +20,6 @@ public class Endereco extends AbstractEntity {
 	
 	@Column(nullable=false)
 	private String telefone;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getRua() {
 		return rua;
