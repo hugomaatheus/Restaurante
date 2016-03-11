@@ -7,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
-import com.br.dao.AbstractEntity;
-
 @Entity
 @SequenceGenerator(name="categoria_id", sequenceName="categoria_seq")
 public class Categoria extends AbstractEntity {

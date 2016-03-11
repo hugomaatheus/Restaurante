@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
-import com.br.Service.ClienteService;
+import com.br.Service.ClienteController;
 import com.br.model.Cliente;
 import com.br.model.Endereco;
 
@@ -30,6 +30,6 @@ public class Principal {
 		endereco.setTelefone(telefone);
 		cliente.setEndereco(endereco);
 		
-		ClienteService.save(cliente);
+		ClienteController.cadastrarCliente(cliente);
 	}
 }

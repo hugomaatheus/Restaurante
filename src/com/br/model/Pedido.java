@@ -15,8 +15,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.br.dao.AbstractEntity;
-
 @Entity
 @SequenceGenerator(name="pedido_id", sequenceName="pedido_seq")
 public class Pedido extends AbstractEntity {
@@ -29,13 +27,12 @@ public class Pedido extends AbstractEntity {
 	@Temporal(TemporalType.DATE)
 	private Date data;
 	
-	@Column(nullable=false)
-	private String status;
+	private Status status;
 	
 	@OneToMany
 	@JoinTable(name="pedido_itemCardapio", joinColumns=@JoinColumn(name="pedido_id"),
 	inverseJoinColumns=@JoinColumn(name="itemCardapio_id"))
-	private Collection<ItemCardapio> itens;
+	private Collection<ItemPedido> itens;
 
 	public Long getId() {
 		return id;
@@ -53,14 +50,20 @@ public class Pedido extends AbstractEntity {
 		this.data = data;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
-	
+
+	public Collection<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Collection<ItemPedido> itens) {
+		this.itens = itens;
+	}
 
 }

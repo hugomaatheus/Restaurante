@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import com.br.model.AbstractEntity;
+
 public abstract class AbstractDao <T extends AbstractEntity> {
 	
 	private EntityManager eM;

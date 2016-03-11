@@ -9,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
-import com.br.dao.AbstractEntity;
-
 @Entity
 @SequenceGenerator(name="cardapio_id", sequenceName="cardapio_seq")
 public class Cardapio extends AbstractEntity {

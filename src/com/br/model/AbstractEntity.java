@@ -1,4 +1,4 @@
-package com.br.dao;
+package com.br.model;
 
 public abstract class AbstractEntity {
 	
