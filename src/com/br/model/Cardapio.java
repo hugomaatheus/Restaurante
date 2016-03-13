@@ -58,7 +58,5 @@ public class Cardapio extends AbstractEntity {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-	
-	
 
 }

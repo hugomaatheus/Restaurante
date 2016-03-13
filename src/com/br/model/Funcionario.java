@@ -1,19 +1,11 @@
 package com.br.model;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.Embeddable;
 
-@Entity
-@SequenceGenerator(name="funcionario_id", sequenceName="funcionario_seq")
+
+@Embeddable
 public class Funcionario extends Usuario {	
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private Long id;
 	
 	@Column(nullable=false)
 	private double Salario;
@@ -21,22 +13,15 @@ public class Funcionario extends Usuario {
 	@Column(nullable=false)
 	private String cpf;
 	
-	private Cargo cargo;
+	private String cargo;
+	
 
-	public Cargo getCargo() {
+	public String getCargo() {
 		return cargo;
 	}
 
-	public void setCargo(Cargo cargo) {
+	public void setCargo(String cargo) {
 		this.cargo = cargo;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public double getSalario() {

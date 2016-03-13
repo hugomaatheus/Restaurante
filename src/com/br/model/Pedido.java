@@ -2,6 +2,7 @@ package com.br.model;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +29,13 @@ public class Pedido extends AbstractEntity {
 	private Date data;
 	
 	private Status status;
+	
+	private Funcionario vendedor;
+	
+	@OneToMany
+	@JoinTable(name="pedido_itensPedido", joinColumns=@JoinColumn(name="pedido_id"),
+	inverseJoinColumns=@JoinColumn(name="itemPedido_id"))
+	private List<ItemPedido> itensPedido;
 	
 	@OneToMany
 	@JoinTable(name="pedido_itemCardapio", joinColumns=@JoinColumn(name="pedido_id"),
@@ -66,4 +74,21 @@ public class Pedido extends AbstractEntity {
 		this.itens = itens;
 	}
 
+	public Funcionario getVendedor() {
+		return vendedor;
+	}
+
+	public void setVendedor(Funcionario vendedor) {
+		this.vendedor = vendedor;
+	}
+
+	public List<ItemPedido> getItensPedido() {
+		return itensPedido;
+	}
+
+	public void setItensPedido(List<ItemPedido> itensPedido) {
+		this.itensPedido = itensPedido;
+	}
+	
+	
 }

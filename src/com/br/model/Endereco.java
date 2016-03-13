@@ -7,15 +7,13 @@ import javax.persistence.Embeddable;
 public class Endereco {
 	
 	
-	@Column(nullable=false)
+	
 	private String rua;
 	
 	private String bairro;
 	
-	@Column(nullable=false)
 	private String numero;
 	
-
 	private String complemento;
 	
 	@Column(nullable=false)

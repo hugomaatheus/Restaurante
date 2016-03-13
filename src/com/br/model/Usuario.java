@@ -34,12 +34,7 @@ public abstract class Usuario extends AbstractEntity {
 	public void setEmail(String email) {
 		
 	}
-	public String getTelefone() {
-		return null;
-	}
-	public void setTelefone(String telefone) {
-		
-	}
+	
 	public Endereco getEndereco() {
 		return null;
 	}

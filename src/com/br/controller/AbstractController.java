@@ -1,4 +1,4 @@
-package com.br.Service;
+package com.br.controller;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

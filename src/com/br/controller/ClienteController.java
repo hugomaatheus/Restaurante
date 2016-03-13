@@ -1,4 +1,4 @@
-package com.br.Service;
+package com.br.controller;
 
 import javax.persistence.EntityManager;
 
@@ -6,11 +6,11 @@ import com.br.dao.ClienteDao;
 import com.br.model.Cliente;
 
 
-public class ClienteController extends AbstractController {
+public class ClienteController implements UsuarioController<Cliente> {
 	
 	//Cadastrar Cliente
-	public static void cadastrarCliente(Cliente cliente) {
-		EntityManager eM = factory.createEntityManager();
+	public void cadastrarUsuario(Cliente cliente) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
 		
 		try {
 			ClienteDao clienteDao = new ClienteDao(eM);
@@ -27,7 +27,8 @@ public class ClienteController extends AbstractController {
 	
 	//Atualizar Cliente
 	public static void atualizarCliente(Cliente cliente) {
-		EntityManager eM = factory.createEntityManager();
+		
+		EntityManager eM = AbstractController.factory.createEntityManager();
 		
 		try {
 			ClienteDao clienteDao = new ClienteDao(eM);
@@ -43,16 +44,34 @@ public class ClienteController extends AbstractController {
 	}
 	
 	//Buscar Cliente
-	public static void buscarCliente(Cliente cliente) {
-		EntityManager eM = factory.createEntityManager();
+	public static void buscarCliente(Long id) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
 		
 		try {
 			ClienteDao clienteDao = new ClienteDao(eM);
-			clienteDao.getById(cliente.getId());
+			clienteDao.getById(id);
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
 		}
 		
+	}
+
+	@Override
+	public void desativarUsuario(Cliente entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void atualizarUsuario(Cliente entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Cliente buscarUsuario(Cliente entity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

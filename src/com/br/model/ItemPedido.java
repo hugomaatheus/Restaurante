@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@SequenceGenerator(name="itemCardapio_id", sequenceName="itemCardapio_seq")
+@SequenceGenerator(name="itemPedido_id", sequenceName="itemPedido_seq")
 public class ItemPedido extends AbstractEntity {
 	
 	@Id
@@ -20,8 +20,7 @@ public class ItemPedido extends AbstractEntity {
 	@Column(nullable=false)
 	private int qtd;
 	
-	@Column(nullable=false)
-	private double preco;
+	private Pedido pedido;
 	
 	@ManyToOne
 	@JoinColumn(name="fk_cardapio")
@@ -51,12 +50,12 @@ public class ItemPedido extends AbstractEntity {
 		this.qtd = qtd;
 	}
 
-	public double getPreco() {
-		return preco;
+	public Pedido getPedido() {
+		return pedido;
 	}
 
-	public void setPreco(double preco) {
-		this.preco = preco;
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 	
 	

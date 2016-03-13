@@ -1,4 +1,4 @@
-package com.br.Service;
+package com.br.controller;
 
 import java.util.List;
 
