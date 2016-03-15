@@ -1,11 +1,15 @@
 package com.br.model;
 
+
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -19,6 +23,19 @@ public class Mesa extends AbstractEntity {
 	private int numero;
 	
 	private int capacidade;
+	
+	@OneToMany
+	@JoinTable(name="mesa_PedTradicional", joinColumns=@JoinColumn(name="pedido_id"),
+	inverseJoinColumns=@JoinColumn(name="tradicional_id"))
+	private List<Pedido> tradicionais;
+
+	public List<Pedido> getTradicionais() {
+		return tradicionais;
+	}
+
+	public void setTradicionais(List<Pedido> tradicionais) {
+		this.tradicionais = tradicionais;
+	}
 
 	public Long getId() {
 		return id;

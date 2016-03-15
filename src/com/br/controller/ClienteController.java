@@ -24,10 +24,15 @@ public class ClienteController implements UsuarioController<Cliente> {
 			eM.close();
 		}
 	}
-	
-	//Atualizar Cliente
-	public static void atualizarCliente(Cliente cliente) {
+
+	@Override
+	public void desativarUsuario(Cliente entity) {
+		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void atualizarUsuario(Cliente cliente) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		
 		try {
@@ -41,37 +46,21 @@ public class ClienteController implements UsuarioController<Cliente> {
 		finally {
 			eM.close();
 		}
+		
 	}
-	
-	//Buscar Cliente
-	public static void buscarCliente(Long id) {
+
+	@Override
+	public Cliente buscarUsuario(Cliente cliente) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
+		Cliente c = null;
 		
 		try {
 			ClienteDao clienteDao = new ClienteDao(eM);
-			clienteDao.getById(id);
+			c = clienteDao.getById(cliente.getId());
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
 		}
-		
-	}
-
-	@Override
-	public void desativarUsuario(Cliente entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void atualizarUsuario(Cliente entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Cliente buscarUsuario(Cliente entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return c;
 	}
 	
 	

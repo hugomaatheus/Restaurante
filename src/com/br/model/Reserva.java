@@ -26,10 +26,19 @@ public class Reserva extends AbstractEntity {
 	private int num_pessoa;
 	@Column(nullable=false)
 	private String nome_Responsavel;
+	
+	private Status status;
+	
 	@Embedded
 	private Funcionario funcionario;
 	
 	
+	public Status getStatus() {
+		return status;
+	}
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 	public Long getId() {
 		return id;
 	}

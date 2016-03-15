@@ -49,16 +49,17 @@ public class ItemPedidoController extends AbstractController {
 		
 	}
 	
-	public static Cardapio cardapio(Long id) {
+	public static Cardapio buscarCardapio(Cardapio cardapio) {
 		EntityManager eM = factory.createEntityManager();
+		Cardapio c = null;
 		
 		try {
 			CardapioDao cardapioDao = new CardapioDao(eM);
-			cardapioDao.getById(id);
+			c = cardapioDao.getById(cardapio.getId());
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
 		}
-		return null;
+		return c;
 	}
 	
 	public static List<ItemPedido> listarItensPedido() {
@@ -66,15 +67,11 @@ public class ItemPedidoController extends AbstractController {
 		
 		try {
 			ItemPedidoDao itemPedido = new ItemPedidoDao(eM);
-			itemPedido.findAll();
+			return itemPedido.findAll();
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
 		}
 		return null;
 	}
-	
-//	public static double (Cardapio cardapio) {
-//		
-//	}
 	
 }

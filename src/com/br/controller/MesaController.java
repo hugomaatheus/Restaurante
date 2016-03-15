@@ -3,7 +3,9 @@ package com.br.controller;
 import javax.persistence.EntityManager;
 
 import com.br.dao.MesaDao;
+import com.br.dao.ReservaDao;
 import com.br.model.Mesa;
+import com.br.model.Reserva;
 
 public class MesaController extends AbstractController {
 	
@@ -26,27 +28,29 @@ public class MesaController extends AbstractController {
 	
 	public static Mesa buscarMesa(Long id) {
 		EntityManager eM = factory.createEntityManager();
+		Mesa m = null;
 		
 		try {
 			MesaDao mesaDao = new MesaDao(eM);
-			mesaDao.getById(id);
+			m = mesaDao.getById(id);
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
 		}
-		return null;
+		return m;
 		
 	}
 	
-	public static Mesa buscarReserva(Long id) {
+	public static Reserva buscarReserva(Reserva reserva) {
 		EntityManager eM = factory.createEntityManager();
+		Reserva r = null;
 		
 		try {
-			MesaDao mesaDao = new MesaDao(eM);
-			mesaDao.getById(id);
+			ReservaDao reservaDao = new ReservaDao(eM);
+			r = reservaDao.getById(reserva.getId());
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
 		}
-		return null;
+		return r;
 		
 	}
 	

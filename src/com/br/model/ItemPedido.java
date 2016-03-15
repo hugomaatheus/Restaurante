@@ -20,6 +20,7 @@ public class ItemPedido extends AbstractEntity {
 	@Column(nullable=false)
 	private int qtd;
 	
+	//Falta relacionamento
 	private Pedido pedido;
 	
 	@ManyToOne

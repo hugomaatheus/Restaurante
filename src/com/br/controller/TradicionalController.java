@@ -4,7 +4,12 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import com.br.dao.DeliveryDao;
+import com.br.dao.ItemPedidoDao;
 import com.br.dao.TradicionalDao;
+import com.br.model.Delivery;
+import com.br.model.Funcionario;
+import com.br.model.ItemPedido;
 import com.br.model.Tradicional;
 
 public class TradicionalController implements PedidoController<Tradicional> {	
@@ -27,21 +32,48 @@ public class TradicionalController implements PedidoController<Tradicional> {
 	}
 
 	@Override
-	public void buscarVendedor(Long id) {
-		// TODO Auto-generated method stub
+	public Funcionario buscarVendedor(Tradicional tradicional) {
 		
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		Tradicional t = null;
+		
+		try {
+			TradicionalDao tradicionalDao = new TradicionalDao(eM);
+			t = (Tradicional) tradicionalDao.getById(tradicional.getId());
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		return t.getVendedor();
 	}
 
 	@Override
-	public void buscarPedido(Long id) {
-		// TODO Auto-generated method stub
+	public Tradicional buscarPedido(Tradicional tradicional) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		Tradicional t = null;
 		
+		try {
+			TradicionalDao tradicionalDao = new TradicionalDao(eM);
+			t = (Tradicional) tradicionalDao.getById(tradicional.getId());
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		
+		return t;
 	}
 
 	@Override
-	public List<Tradicional> listarItensPedido() {
-		// TODO Auto-generated method stub
+	public List<ItemPedido> listarItensPedido() {
+		
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		
+		try {
+			ItemPedidoDao itemPedidoDao = new ItemPedidoDao(eM);
+			return itemPedidoDao.findAll();
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
 		return null;
 	}
+
 	
 }

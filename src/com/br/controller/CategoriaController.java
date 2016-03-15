@@ -39,12 +39,12 @@ public class CategoriaController extends AbstractController {
 		}
 	}
 	
-	public static Categoria buscarCategoria(Long id) {
+	public static Categoria buscarCategoria(Categoria categoria) {
 		EntityManager eM = factory.createEntityManager();
 		
 		try {
 			CategoriaDao categoriaDao = new CategoriaDao(eM);
-			categoriaDao.getById(id);
+			categoriaDao.getById(categoria.getId());
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
 		}

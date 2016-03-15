@@ -8,7 +8,7 @@ import javax.persistence.Embeddable;
 public class Funcionario extends Usuario {	
 	
 	@Column(nullable=false)
-	private double Salario;
+	private double salario;
 	
 	@Column(nullable=false)
 	private String cpf;
@@ -25,11 +25,11 @@ public class Funcionario extends Usuario {
 	}
 
 	public double getSalario() {
-		return Salario;
+		return salario;
 	}
 
 	public void setSalario(double salario) {
-		Salario = salario;
+		salario = salario;
 	}
 
 	public String getCpf() {
