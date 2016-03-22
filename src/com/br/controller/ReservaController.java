@@ -63,6 +63,7 @@ public class ReservaController extends AbstractController {
 		Reserva reserva = reservaDao.getById(id);
 		
 		try {
+			//Testa para caso esteja tentando cancelar uma reserva já cancelada
 			if(reserva.getStatus() == Status.ATIVO) {
 				reserva.setStatus(Status.CANCELADO);
 				reservaDao.update(reserva);

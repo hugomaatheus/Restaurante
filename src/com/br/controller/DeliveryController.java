@@ -3,14 +3,11 @@ package com.br.controller;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import com.br.dao.DeliveryDao;
-import com.br.dao.ItemPedidoDao;
 import com.br.model.Delivery;
 import com.br.model.Funcionario;
 import com.br.model.ItemPedido;
-import com.br.model.Pedido;
 
 public class DeliveryController implements PedidoController<Delivery> {
 

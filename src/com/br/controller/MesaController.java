@@ -10,6 +10,7 @@ public class MesaController extends AbstractController {
 	
 	ReservaController rController;
 	
+	//Manter mesa
 	public void cadastrarMesa(Mesa mesa) {
 		
 		EntityManager eM = factory.createEntityManager();
@@ -56,6 +57,7 @@ public class MesaController extends AbstractController {
 		return m;
 		
 	}
+	//////////////////////////////////////////
 	
 	public Reserva buscarReserva(Long id) {
 		Reserva r = null;

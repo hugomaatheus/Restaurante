@@ -7,17 +7,23 @@ import com.br.controller.ClienteController;
 import com.br.controller.FuncionarioController;
 import com.br.model.Categoria;
 import com.br.model.Cliente;
+import com.br.model.Endereco;
 import com.br.model.Funcionario;
+import com.br.model.Status;
 
 public class Principal {
 	
 	public static void main(String[] args) throws IOException {
 
 		
-		Categoria c = new Categoria();
-		CategoriaController cC = new CategoriaController();
+		Funcionario f = new Funcionario();
+		FuncionarioController fC = new FuncionarioController();
 		
-		c.setNome("Bebidas");
-		cC.cadastrarCategoria(c);
+		f.setNome("Hugo");
+		f.setCargo("garçom");
+		f.setCpf("34235235");
+		f.setStatus(Status.ATIVO);
+		fC.cadastrarUsuario(f);
+		
 	}
 }

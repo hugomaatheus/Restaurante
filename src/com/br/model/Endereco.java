@@ -15,7 +15,6 @@ public class Endereco {
 	
 	private String complemento;
 	
-	@Column(nullable=false)
 	private String telefone;
 
 	public String getRua() {

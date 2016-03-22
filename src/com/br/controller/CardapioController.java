@@ -88,6 +88,7 @@ public class CardapioController extends AbstractController {
 	}
 	/////////////////////////////////////////
 	
+	
 	public Categoria buscarCategoria(Long id) {
 		EntityManager eM = factory.createEntityManager();
 		CategoriaDao cDao = new CategoriaDao(eM);

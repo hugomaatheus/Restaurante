@@ -12,13 +12,14 @@ import com.br.model.Status;
 public class ClienteController implements UsuarioController<Cliente>{
 
 	private DeliveryController dController;
-
+	
+	//Manter cliente
 	@Override
 	public void cadastrarUsuario(Cliente cliente) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		ClienteDao clienteDao = new ClienteDao(eM);
 		
-		try {
+		try {	
 			clienteDao.save(cliente);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();
@@ -89,8 +90,10 @@ public class ClienteController implements UsuarioController<Cliente>{
 		
 		return c;
 	}
+	//////////////////////////////////////////
 	
 	
+	//Manter pedido
 	public Delivery buscarPedidoDelivery(Long id) {
 		
 		Delivery d = null;
@@ -106,5 +109,5 @@ public class ClienteController implements UsuarioController<Cliente>{
 		dController.cadastrarPedido(delivery);
 		
 	}
-
+	///////////////////////////////////////////
 }

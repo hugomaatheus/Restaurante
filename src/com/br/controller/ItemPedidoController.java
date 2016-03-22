@@ -14,6 +14,7 @@ import com.br.model.Pedido;
 
 public class ItemPedidoController extends AbstractController {
 	
+	//Manter Item Pedido
 	public static void cadastrarItemPedido(ItemPedido itemPedido) {
 		
 		EntityManager eM = factory.createEntityManager();
@@ -50,6 +51,16 @@ public class ItemPedidoController extends AbstractController {
 		
 	}
 	
+	public static List<ItemPedido> listarItensPedido() {
+		EntityManager eM = factory.createEntityManager();
+		Query query = eM.createNamedQuery("findAllItens");
+		List<ItemPedido> itens = query.getResultList();
+		
+		return itens;
+	}
+	////////////////////////////////////////////////////////
+	
+	
 	public static Cardapio buscarCardapio(Cardapio cardapio) {
 		EntityManager eM = factory.createEntityManager();
 		Cardapio c = null;
@@ -61,15 +72,6 @@ public class ItemPedidoController extends AbstractController {
 			eM.getTransaction().rollback();
 		}
 		return c;
-	}
-	
-
-	public static List<ItemPedido> listarItensPedido() {
-		EntityManager eM = factory.createEntityManager();
-		Query query = eM.createNamedQuery("findAllItens");
-		List<ItemPedido> itens = query.getResultList();
-		
-		return itens;
 	}
 	
 }

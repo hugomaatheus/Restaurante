@@ -97,6 +97,7 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 	@Override
 	public void desativarUsuario(Funcionario f) {
 		//Funcionario não desativa funcionario
+		//Apenas o gerente!
 	}
 	
 	
