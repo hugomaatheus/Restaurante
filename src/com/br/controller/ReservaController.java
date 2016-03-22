@@ -56,17 +56,19 @@ public class ReservaController extends AbstractController {
 		}
 	}
 	
-	public static void cancelarReserva(Reserva reserva) {
+	public static void cancelarReserva(Long id) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
+		ReservaDao reservaDao = new ReservaDao(eM);
+		Reserva reserva = reservaDao.getById(id);
 		
 		try {
 			if(reserva.getStatus() == Status.ATIVO)
 				reserva.setStatus(Status.CANCELADO);
 			else
-				JOptionPane.showMessageDialog(null, "Você está tentando cancelar uma reserva já cancelada!");
+				JOptionPane.showMessageDialog(null, "Você está tentando cancelar "
+						+ "uma reserva já cancelada!");
 			
-			ReservaDao reservaDao = new ReservaDao(eM);
 			reservaDao.update(reserva);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();

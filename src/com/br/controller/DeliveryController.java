@@ -49,19 +49,19 @@ public class DeliveryController implements PedidoController<Delivery> {
 	}
 
 	@Override
-	public Delivery buscarPedido(Delivery delivery) {
+	public Delivery buscarPedido(Long id) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		Delivery d = null;
 		
 		try {
 			DeliveryDao deliveryDao = new DeliveryDao(eM);
-			d = (Delivery) deliveryDao.getById(delivery.getId());
+			d = (Delivery) deliveryDao.getById(id);
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
 		}
 		
-		return delivery;		
+		return d;		
 	}
 
 	@Override

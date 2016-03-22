@@ -11,7 +11,7 @@ public interface PedidoController<T> {
 	
 	public void cadastrarPedido(T entity);
 	public Funcionario buscarVendedor(T entity);
-	public T buscarPedido(T entity);
+	public T buscarPedido(Long id);
 	public List<ItemPedido> listarItensPedido();
 	
 }

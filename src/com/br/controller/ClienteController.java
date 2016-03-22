@@ -4,14 +4,16 @@ import javax.persistence.EntityManager;
 
 import com.br.dao.ClienteDao;
 import com.br.model.Cliente;
+import com.br.model.Delivery;
 
 
-public class ClienteController implements UsuarioController<Cliente> {
+public class ClienteController extends UsuarioController {
+
+	private DeliveryController dController;
 	
-	//Cadastrar Cliente
 	public void cadastrarUsuario(Cliente cliente) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
-		
+
 		try {
 			ClienteDao clienteDao = new ClienteDao(eM);
 			clienteDao.save(cliente);
@@ -23,18 +25,13 @@ public class ClienteController implements UsuarioController<Cliente> {
 		finally {
 			eM.close();
 		}
-	}
-
-	@Override
-	public void desativarUsuario(Cliente entity) {
-		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
+	
+	
 	public void atualizarUsuario(Cliente cliente) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
-		
+
 		try {
 			ClienteDao clienteDao = new ClienteDao(eM);
 			clienteDao.update(cliente);
@@ -46,14 +43,13 @@ public class ClienteController implements UsuarioController<Cliente> {
 		finally {
 			eM.close();
 		}
-		
+
 	}
 
-	@Override
 	public Cliente buscarUsuario(Cliente cliente) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		Cliente c = null;
-		
+
 		try {
 			ClienteDao clienteDao = new ClienteDao(eM);
 			c = clienteDao.getById(cliente.getId());
@@ -62,9 +58,15 @@ public class ClienteController implements UsuarioController<Cliente> {
 		}
 		return c;
 	}
+
 	
+
+	public void desativarUsuario(Cliente c) {
+		// TODO Auto-generated method stub
+		
+	}
 	
-	
-	
-	
+	//buscarPedido()
+	//cadastrarPedidoDelivery()
+
 }

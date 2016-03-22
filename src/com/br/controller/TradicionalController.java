@@ -47,13 +47,13 @@ public class TradicionalController implements PedidoController<Tradicional> {
 	}
 
 	@Override
-	public Tradicional buscarPedido(Tradicional tradicional) {
+	public Tradicional buscarPedido(Long id) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		Tradicional t = null;
 		
 		try {
 			TradicionalDao tradicionalDao = new TradicionalDao(eM);
-			t = (Tradicional) tradicionalDao.getById(tradicional.getId());
+			t = (Tradicional) tradicionalDao.getById(id);
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
 		}
