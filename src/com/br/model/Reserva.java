@@ -2,12 +2,12 @@ package com.br.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -18,18 +18,18 @@ public class Reserva extends AbstractEntity {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable=false)
 	private Date dataInicial;
-	@Column(nullable=false)
+	
 	private Date dataFinal;
-	@Column(nullable=false)
+	
 	private int num_pessoa;
-	@Column(nullable=false)
+	
 	private String nome_Responsavel;
 	
 	private Status status;
 	
-	@Embedded
+	@ManyToOne
+	@JoinColumn(name="fk_funcionario")
 	private Funcionario funcionario;
 	
 	

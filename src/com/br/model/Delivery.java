@@ -1,6 +1,8 @@
 package com.br.model;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 
@@ -15,6 +17,8 @@ public class Delivery extends Pedido {
 	
 	private Double trocoPara;
 	
+	@ManyToOne
+	@JoinColumn(name="fk_cliente")
 	private Cliente cliente;
 	
 	
