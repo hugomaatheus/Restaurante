@@ -1,21 +1,24 @@
 package com.br.controller;
 
 import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
 
 import com.br.dao.ClienteDao;
 import com.br.model.Cliente;
 import com.br.model.Delivery;
+import com.br.model.Status;
 
 
-public class ClienteController extends UsuarioController {
+public class ClienteController implements UsuarioController<Cliente>{
 
 	private DeliveryController dController;
-	
+
+	@Override
 	public void cadastrarUsuario(Cliente cliente) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
-
+		ClienteDao clienteDao = new ClienteDao(eM);
+		
 		try {
-			ClienteDao clienteDao = new ClienteDao(eM);
 			clienteDao.save(cliente);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();
@@ -27,13 +30,39 @@ public class ClienteController extends UsuarioController {
 		}
 		
 	}
-	
-	
+
+	@Override
+	public void desativarUsuario(Cliente cliente) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		ClienteDao clienteDao = new ClienteDao(eM);
+		
+		try {
+			
+			if(cliente.getStatus() == Status.ATIVO) {
+				cliente.setStatus(Status.INATIVO);
+				clienteDao.update(cliente);
+				eM.getTransaction().begin();
+				eM.getTransaction().commit();
+			}
+			else
+				JOptionPane.showConfirmDialog(null, "Você está tentando desativar"
+						+ "um cliente já inativo");
+				
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
+		
+	}
+
+	@Override
 	public void atualizarUsuario(Cliente cliente) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
-
+		ClienteDao clienteDao = new ClienteDao(eM);
+		
 		try {
-			ClienteDao clienteDao = new ClienteDao(eM);
 			clienteDao.update(cliente);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();
@@ -43,30 +72,39 @@ public class ClienteController extends UsuarioController {
 		finally {
 			eM.close();
 		}
-
+		
 	}
 
-	public Cliente buscarUsuario(Cliente cliente) {
+	@Override
+	public Cliente buscarUsuario(Long id) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
+		ClienteDao clienteDao = new ClienteDao(eM);
 		Cliente c = null;
-
+		
 		try {
-			ClienteDao clienteDao = new ClienteDao(eM);
-			c = clienteDao.getById(cliente.getId());
+			c = clienteDao.getById(id);
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
 		}
+		
 		return c;
 	}
-
 	
-
-	public void desativarUsuario(Cliente c) {
-		// TODO Auto-generated method stub
+	
+	public Delivery buscarPedidoDelivery(Long id) {
 		
+		Delivery d = null;
+		
+		d = dController.buscarPedido(id);
+		
+		return d;
 	}
 	
-	//buscarPedido()
-	//cadastrarPedidoDelivery()
+	
+	public void cadastrarPedido(Delivery delivery) {
+		
+		dController.cadastrarPedido(delivery);
+		
+	}
 
 }

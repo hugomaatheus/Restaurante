@@ -2,15 +2,16 @@ package com.br.model;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
@@ -18,24 +19,21 @@ import javax.persistence.TemporalType;
 
 @Entity
 @SequenceGenerator(name="pedido_id", sequenceName="pedido_seq")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Pedido extends AbstractEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
 	
-	@Column(nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date data;
 	
 	private Status status;
 	
+	@ManyToOne
+	@JoinColumn(name="fk_funcionario")
 	private Funcionario vendedor;
-	
-	@OneToMany
-	@JoinTable(name="pedido_itensPedido", joinColumns=@JoinColumn(name="pedido_id"),
-	inverseJoinColumns=@JoinColumn(name="itemPedido_id"))
-	private List<ItemPedido> itensPedido;
 	
 	@OneToMany
 	@JoinTable(name="pedido_itemCardapio", joinColumns=@JoinColumn(name="pedido_id"),
@@ -80,14 +78,6 @@ public class Pedido extends AbstractEntity {
 
 	public void setVendedor(Funcionario vendedor) {
 		this.vendedor = vendedor;
-	}
-
-	public List<ItemPedido> getItensPedido() {
-		return itensPedido;
-	}
-
-	public void setItensPedido(List<ItemPedido> itensPedido) {
-		this.itensPedido = itensPedido;
 	}
 	
 	

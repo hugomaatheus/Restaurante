@@ -10,6 +10,15 @@ public abstract class Usuario extends AbstractEntity {
 	public void setId(Long id) {
 		
 	}
+	
+	public Status getStatus() {
+		return null;
+	}
+	
+	public void setStatus(Status status) {
+		
+	}
+	
 	public String getLogin() {
 		return null;
 	}

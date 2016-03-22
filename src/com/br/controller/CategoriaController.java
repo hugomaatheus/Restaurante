@@ -7,7 +7,7 @@ import com.br.model.Categoria;
 
 public class CategoriaController extends AbstractController {
 	
-	public static void cadastrarCategoria(Categoria categoria) {
+	public void cadastrarCategoria(Categoria categoria) {
 		EntityManager eM = factory.createEntityManager();
 		
 		try {
@@ -23,7 +23,7 @@ public class CategoriaController extends AbstractController {
 		}
 	}
 	
-	public static void removerCategoria(Categoria categoria) {
+	public void removerCategoria(Categoria categoria) {
 		EntityManager eM = factory.createEntityManager();
 		
 		try {
@@ -39,19 +39,36 @@ public class CategoriaController extends AbstractController {
 		}
 	}
 	
-	public static Categoria buscarCategoria(Categoria categoria) {
+	public Categoria buscarCategoria(Long id) {
 		EntityManager eM = factory.createEntityManager();
+		CategoriaDao categoriaDao = new CategoriaDao(eM);
+		Categoria c = null;
 		
-		try {
-			CategoriaDao categoriaDao = new CategoriaDao(eM);
-			categoriaDao.getById(categoria.getId());
+		try {	
+			c = categoriaDao.getById(id);
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
 		}
 		finally {
 			eM.close();
 		}
-		return null;
+		return c;
+	}
+	
+	public void atualizarCategoria(Categoria c) {
+		EntityManager eM = factory.createEntityManager();
+		CategoriaDao categoriaDao = new CategoriaDao(eM);
+		
+		 try {
+			 categoriaDao.update(c);
+			 eM.getTransaction().begin();
+			 eM.getTransaction().commit();
+		 }catch (Exception e) {
+			 eM.getTransaction().rollback();
+		 }
+		 finally {
+			eM.close();
+		}
 	}
 	
 	

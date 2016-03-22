@@ -64,15 +64,7 @@ public class TradicionalController implements PedidoController<Tradicional> {
 	@Override
 	public List<ItemPedido> listarItensPedido() {
 		
-		EntityManager eM = AbstractController.factory.createEntityManager();
-		
-		try {
-			ItemPedidoDao itemPedidoDao = new ItemPedidoDao(eM);
-			return itemPedidoDao.findAll();
-		}catch (Exception e) {
-			eM.getTransaction().rollback();
-		}
-		return null;
+		return ItemPedidoController.listarItensPedido();
 	}
 
 	

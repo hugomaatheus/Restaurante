@@ -3,18 +3,19 @@ package com.br.controller;
 import javax.persistence.EntityManager;
 
 import com.br.dao.MesaDao;
-import com.br.dao.ReservaDao;
 import com.br.model.Mesa;
 import com.br.model.Reserva;
 
 public class MesaController extends AbstractController {
 	
-	public static void cadastrarMesa(Mesa mesa) {
+	ReservaController rController;
+	
+	public void cadastrarMesa(Mesa mesa) {
 		
 		EntityManager eM = factory.createEntityManager();
+		MesaDao mesaDao = new MesaDao(eM);
 		
 		try {
-			MesaDao mesaDao = new MesaDao(eM);
 			mesaDao.save(mesa);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();
@@ -26,7 +27,23 @@ public class MesaController extends AbstractController {
 		}
 	}
 	
-	public static Mesa buscarMesa(Long id) {
+	public void atualizarMesa(Mesa mesa) {
+		EntityManager eM = factory.createEntityManager();
+		MesaDao mesaDao = new MesaDao(eM);
+		
+		try {
+			mesaDao.update(mesa);
+			eM.getTransaction().begin();
+			eM.getTransaction().commit();
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
+	}
+	
+	public Mesa buscarMesa(Long id) {
 		EntityManager eM = factory.createEntityManager();
 		Mesa m = null;
 		
@@ -40,16 +57,11 @@ public class MesaController extends AbstractController {
 		
 	}
 	
-	public static Reserva buscarReserva(Reserva reserva) {
-		EntityManager eM = factory.createEntityManager();
+	public Reserva buscarReserva(Long id) {
 		Reserva r = null;
 		
-		try {
-			ReservaDao reservaDao = new ReservaDao(eM);
-			r = reservaDao.getById(reserva.getId());
-		}catch (Exception e) {
-			eM.getTransaction().rollback();
-		}
+		r = rController.buscarReserva(id);
+		
 		return r;
 		
 	}

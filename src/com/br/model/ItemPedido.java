@@ -7,10 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name="itemPedido_id", sequenceName="itemPedido_seq")
+@NamedQuery(name="findAllItens", query="SELECT i FROM ItemPedido i")
 public class ItemPedido extends AbstractEntity {
 	
 	@Id
@@ -20,7 +22,6 @@ public class ItemPedido extends AbstractEntity {
 	@Column(nullable=false)
 	private int qtd;
 	
-	//Falta relacionamento
 	private Pedido pedido;
 	
 	@ManyToOne

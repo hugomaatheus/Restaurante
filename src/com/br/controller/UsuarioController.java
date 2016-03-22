@@ -1,16 +1,10 @@
 package com.br.controller;
 
-
-
-public abstract class UsuarioController extends AbstractController {
+public interface UsuarioController <T> {
 	
-	
-	public void cadastrarUsuario() {}
-	
-	public void desativarUsuario() {}
-	
-	public void atualizarUsuario() {}
-	
-	
+	public void cadastrarUsuario(T entity);
+	public void desativarUsuario(T entity);
+	public void atualizarUsuario(T entity);
+	public T buscarUsuario(Long id);
 	
 }

@@ -3,6 +3,7 @@ package com.br.controller;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.br.dao.DeliveryDao;
 import com.br.dao.ItemPedidoDao;
@@ -64,18 +65,12 @@ public class DeliveryController implements PedidoController<Delivery> {
 		return d;		
 	}
 
+
 	@Override
 	public List<ItemPedido> listarItensPedido() {
 		
-		EntityManager eM = AbstractController.factory.createEntityManager();
+		return ItemPedidoController.listarItensPedido();
 		
-		try {
-			ItemPedidoDao itemPedidoDao = new ItemPedidoDao(eM);
-			return itemPedidoDao.findAll();
-		}catch (Exception e) {
-			eM.getTransaction().rollback();
-		}
-		return null;
 	}
 
 	

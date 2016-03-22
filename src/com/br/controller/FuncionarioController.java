@@ -5,25 +5,26 @@ import javax.swing.JOptionPane;
 
 import com.br.dao.FuncionarioDao;
 import com.br.dao.TradicionalDao;
+import com.br.model.Delivery;
 import com.br.model.Funcionario;
 import com.br.model.Reserva;
 import com.br.model.Status;
 import com.br.model.Tradicional;
 
-public class FuncionarioController extends UsuarioController {
+public class FuncionarioController implements UsuarioController <Funcionario> {
 	
 	private TradicionalController tController;
 	private ReservaController rController;
 	private DeliveryController dController;
 	
-	
+	//Manter Reserva
 	public void cadastrarReserva(Reserva reserva) {
 		rController.cadastrarReserva(reserva);
 	}
 	
-	//buscarReserva()
-
-	
+	public Reserva buscarReserva(Long id) {
+		return rController.buscarReserva(id);
+	}
 	
 	public void atualizarReserva(Reserva reserva) {
 		rController.atualizarReserva(reserva);
@@ -32,17 +33,20 @@ public class FuncionarioController extends UsuarioController {
 	public void cancelarReserva(Long id) {
 		rController.cancelarReserva(id);
 	}
+	///////////////////////////////////////////
 	
-	//buscarPedidoTradicional()
-	//buscarPedidoDelivery()
 	
+	//Manter Pedido Tradicional
+	public Tradicional buscarPedidoTradicional(Long id) {
+		return tController.buscarPedido(id);
+	}
 	
 	public void cadastrarPedidoTradicional(Tradicional tradicional) {
 		tController.cadastrarPedido(tradicional);
 	}
 	
 	public void cancelarPedidoTradicional(Long id) {
-		EntityManager eM = factory.createEntityManager();
+		EntityManager eM = AbstractController.factory.createEntityManager();
 		TradicionalDao tDao = new TradicionalDao(eM);
 		Tradicional tradicional = tController.buscarPedido(id);
 		
@@ -63,16 +67,22 @@ public class FuncionarioController extends UsuarioController {
 			eM.close();
 		}
 	}
+	///////////////////////////////////////////
 	
-	//atualizarPedidoTradicional()
+	
+	public Delivery buscarPedidoDelivery(Long id) {
+		return dController.buscarPedido(id);
+	}
 	
 	
-	public void cadastrarFuncionario(Funcionario funcionario) {
-		EntityManager eM = factory.createEntityManager();
+	//Manter Funcionario
+	@Override
+	public void cadastrarUsuario(Funcionario f) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
 		FuncionarioDao fDao = new FuncionarioDao(eM);
 		
 		try {
-			fDao.save(funcionario);
+			fDao.save(f);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();
 		}catch (Exception e) {
@@ -81,13 +91,38 @@ public class FuncionarioController extends UsuarioController {
 		finally {
 			eM.close();
 		}
+		
+	}
+
+	@Override
+	public void desativarUsuario(Funcionario f) {
+		//Funcionario não desativa funcionario
 	}
 	
 	
-	public Funcionario buscarFuncionario(Long id) {
-		EntityManager eM = factory.createEntityManager();
-		Funcionario f = null;
+	@Override
+	public void atualizarUsuario(Funcionario f) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
 		FuncionarioDao fDao = new FuncionarioDao(eM);
+		
+		try {
+			fDao.update(f);
+			eM.getTransaction().begin();
+			eM.getTransaction().commit();
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
+		
+	}
+
+	@Override
+	public Funcionario buscarUsuario(Long id) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		FuncionarioDao fDao = new FuncionarioDao(eM);
+		Funcionario f = null;
 		
 		try {
 			f = fDao.getById(id);
@@ -97,38 +132,6 @@ public class FuncionarioController extends UsuarioController {
 		
 		return f;
 	}
+	///////////////////////////////////////////
 	
-	public void atualizarFuncionario(Funcionario funcionario) {
-		EntityManager eM = factory.createEntityManager();
-		FuncionarioDao fDao = new FuncionarioDao(eM);
-		
-		try {
-			fDao.update(funcionario);
-			eM.getTransaction().begin();
-			eM.getTransaction().commit();
-		}catch (Exception e) {
-			eM.getTransaction().rollback();
-		}
-		finally {
-			eM.close();
-		}
-	}
-	
-	
-	public void excluirFuncionario(Long id) {
-		EntityManager eM = factory.createEntityManager();
-		FuncionarioDao fDao = new FuncionarioDao(eM);
-		Funcionario f = null;
-		
-		try {
-			f = fDao.getById(id);
-			fDao.delete(f);
-		}catch (Exception e) {
-			eM.getTransaction().begin();
-			eM.getTransaction().commit();
-		}
-		finally {
-			eM.close();
-		}
-	}
 }

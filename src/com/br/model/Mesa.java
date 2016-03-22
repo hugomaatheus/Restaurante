@@ -25,9 +25,24 @@ public class Mesa extends AbstractEntity {
 	private int capacidade;
 	
 	@OneToMany
-	@JoinTable(name="mesa_PedTradicional", joinColumns=@JoinColumn(name="pedido_id"),
+	@JoinTable(name="mesa_PedTradicional", joinColumns=@JoinColumn(name="mesa_id"),
 	inverseJoinColumns=@JoinColumn(name="tradicional_id"))
 	private List<Pedido> tradicionais;
+	
+	@OneToMany
+	@JoinTable(name="mesa_Reserva", joinColumns=@JoinColumn(name="mesa_id"),
+	inverseJoinColumns=@JoinColumn(name="reserva_id"))
+	private List<Reserva> reservas;
+	
+	
+
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
+	}
 
 	public List<Pedido> getTradicionais() {
 		return tradicionais;

@@ -3,6 +3,7 @@ package com.br.controller;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.br.dao.CardapioDao;
 import com.br.dao.ItemPedidoDao;
@@ -62,16 +63,13 @@ public class ItemPedidoController extends AbstractController {
 		return c;
 	}
 	
+
 	public static List<ItemPedido> listarItensPedido() {
 		EntityManager eM = factory.createEntityManager();
+		Query query = eM.createNamedQuery("findAllItens");
+		List<ItemPedido> itens = query.getResultList();
 		
-		try {
-			ItemPedidoDao itemPedido = new ItemPedidoDao(eM);
-			return itemPedido.findAll();
-		}catch (Exception e) {
-			eM.getTransaction().rollback();
-		}
-		return null;
+		return itens;
 	}
 	
 }

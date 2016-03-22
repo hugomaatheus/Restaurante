@@ -7,7 +7,6 @@ import javax.persistence.Embeddable;
 public class Endereco {
 	
 	
-	
 	private String rua;
 	
 	private String bairro;

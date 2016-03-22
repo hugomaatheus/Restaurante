@@ -33,7 +33,8 @@ public class Cliente extends Usuario {
 	
 	@Embedded
 	private Endereco endereco;
-	
+
+
 	public Endereco getEndereco() {
 		return endereco;
 	}

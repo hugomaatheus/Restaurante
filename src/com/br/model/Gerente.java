@@ -1,5 +1,5 @@
-package com.br.model;
-
-public class Gerente extends Funcionario {
-
-}
+//package com.br.model;
+//
+//public class Gerente extends Funcionario {
+//
+//}

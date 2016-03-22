@@ -9,7 +9,7 @@ import com.br.model.Status;
 
 public class ReservaController extends AbstractController {
 	
-	public static void cadastrarReserva(Reserva reserva) {
+	public void cadastrarReserva(Reserva reserva) {
 		EntityManager eM = factory.createEntityManager();
 		
 		try {
@@ -26,21 +26,21 @@ public class ReservaController extends AbstractController {
 		}
 	}
 	
-	public static Reserva buscarReserva(Reserva reserva) {
+	public Reserva buscarReserva(Long id) {
 		
 		EntityManager eM = factory.createEntityManager();
 		Reserva r = null;
 		
 		try {
 			ReservaDao reservaDao = new ReservaDao(eM);
-			r = reservaDao.getById(reserva.getId());
+			r = reservaDao.getById(id);
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
 		}
 		return r;
 	}
 	
-	public static void atualizarReserva(Reserva reserva) {
+	public void atualizarReserva(Reserva reserva) {
 		EntityManager eM = factory.createEntityManager();
 		
 		try {
@@ -56,22 +56,25 @@ public class ReservaController extends AbstractController {
 		}
 	}
 	
-	public static void cancelarReserva(Long id) {
+	public void cancelarReserva(Long id) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		ReservaDao reservaDao = new ReservaDao(eM);
 		Reserva reserva = reservaDao.getById(id);
 		
 		try {
-			if(reserva.getStatus() == Status.ATIVO)
+			if(reserva.getStatus() == Status.ATIVO) {
 				reserva.setStatus(Status.CANCELADO);
+				reservaDao.update(reserva);
+				eM.getTransaction().begin();
+				eM.getTransaction().commit();
+			}
+				
 			else
 				JOptionPane.showMessageDialog(null, "Você está tentando cancelar "
 						+ "uma reserva já cancelada!");
 			
-			reservaDao.update(reserva);
-			eM.getTransaction().begin();
-			eM.getTransaction().commit();
+			
 				
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
@@ -81,7 +84,7 @@ public class ReservaController extends AbstractController {
 		}
 	}
 	
-	public static void excluirReserva(Reserva reserva) {
+	public void excluirReserva(Reserva reserva) {
 		EntityManager eM = factory.createEntityManager();
 		
 		try {
