@@ -1,18 +1,17 @@
 package com.br.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name="delivery_id", sequenceName="delivery_seq")
+@PrimaryKeyJoinColumn(name="pedido_id")
 public class Delivery extends Pedido {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private Long id;
+//	@Id
+//	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	private Long id;
 	
 	private Double trocoPara;
 	
@@ -20,13 +19,13 @@ public class Delivery extends Pedido {
 	
 	
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+//	public Long getId() {
+//		return id;
+//	}
+//
+//	public void setId(Long id) {
+//		this.id = id;
+//	}
 
 	public Double getTrocoPara() {
 		return trocoPara;

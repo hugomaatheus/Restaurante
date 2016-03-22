@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 public class Pedido extends AbstractEntity {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	@Temporal(TemporalType.DATE)

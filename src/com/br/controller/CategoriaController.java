@@ -9,9 +9,9 @@ public class CategoriaController extends AbstractController {
 	
 	public void cadastrarCategoria(Categoria categoria) {
 		EntityManager eM = factory.createEntityManager();
+		CategoriaDao categoriaDao = new CategoriaDao(eM);
 		
 		try {
-			CategoriaDao categoriaDao = new CategoriaDao(eM);
 			categoriaDao.save(categoria);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();

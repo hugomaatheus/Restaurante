@@ -17,7 +17,7 @@ import javax.persistence.SequenceGenerator;
 public class Mesa extends AbstractEntity {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	private int numero;

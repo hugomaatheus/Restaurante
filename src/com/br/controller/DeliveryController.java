@@ -16,7 +16,6 @@ public class DeliveryController implements PedidoController<Delivery> {
 
 	@Override
 	public void cadastrarPedido(Delivery delivery) {
-		new AbstractController();
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		
 		try {

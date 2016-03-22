@@ -12,12 +12,12 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name="funcionario_id", sequenceName="funcionario_seq")
-@Inheritance(strategy=InheritanceType.JOINED)
+//@Inheritance(strategy=InheritanceType.JOINED)
 public class Funcionario extends Usuario {	
 	
-//	@Id
-//	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-//	private Long id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
 	
 	private double salario;
 	
@@ -26,13 +26,13 @@ public class Funcionario extends Usuario {
 	private String cargo;
 
 	
-//	public Long getId() {
-//		return id;
-//	}
-//
-//	public void setId(Long id) {
-//		this.id = id;
-//	}
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getCargo() {
 		return cargo;

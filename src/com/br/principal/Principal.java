@@ -2,20 +2,22 @@ package com.br.principal;
 
 import java.io.IOException;
 
+import com.br.controller.CategoriaController;
 import com.br.controller.ClienteController;
+import com.br.controller.FuncionarioController;
+import com.br.model.Categoria;
 import com.br.model.Cliente;
+import com.br.model.Funcionario;
 
 public class Principal {
 	
 	public static void main(String[] args) throws IOException {
 
 		
-		Cliente c = new Cliente();
-		ClienteController cC = new ClienteController();
+		Categoria c = new Categoria();
+		CategoriaController cC = new CategoriaController();
 		
-		c.setNome("Hugo");
-		c.setEmail("hugomatheus650@gmail.com");
-		c.setSenha("23242");
-		cC.cadastrarUsuario(c);
+		c.setNome("Bebidas");
+		cC.cadastrarCategoria(c);
 	}
 }

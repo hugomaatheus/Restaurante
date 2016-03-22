@@ -22,8 +22,8 @@ public class Cliente extends Usuario {
 	private Long id;
 	
 	@OneToMany
-	@JoinTable(name="cliente_delivery", joinColumns=@JoinColumn(name="cliente_id"),
-	inverseJoinColumns=@JoinColumn(name="delivery_id"))
+	@JoinTable(name="cliente_pedido", joinColumns=@JoinColumn(name="cliente_id"),
+	inverseJoinColumns=@JoinColumn(name="pedido_id"))
 	private List<Pedido> deliverys;
 	
 	private String login;
