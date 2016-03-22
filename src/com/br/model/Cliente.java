@@ -90,5 +90,13 @@ public class Cliente extends Usuario {
 	public void setId(Long id) {
 		this.id = id;
 	}	
-
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("Nome: %s\n"
+				+ "Email: %s\n"
+				+ "Endereço => %s", getNome(), getEmail(), getEndereco());
+	}
+	
 }

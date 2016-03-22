@@ -8,5 +8,7 @@ public class GerenteDao extends FuncionarioDao {
 		super(eM);
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
 }

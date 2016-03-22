@@ -14,7 +14,7 @@ public class MesaDao extends AbstractDao<Mesa> {
 	@Override
 	public Class<Mesa> getTypeClass() {
 		// TODO Auto-generated method stub
-		return null;
+		return Mesa.class;
 	}
 	
 }

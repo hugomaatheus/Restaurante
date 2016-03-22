@@ -13,7 +13,7 @@ import com.br.model.Tradicional;
 
 public class FuncionarioController implements UsuarioController <Funcionario> {
 	
-	private TradicionalController tController;
+	private TradicionalController tController = new TradicionalController();
 	private ReservaController rController;
 	private DeliveryController dController;
 	
@@ -43,7 +43,7 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 	
 	public void cadastrarPedidoTradicional(Tradicional tradicional) {
 		tController.cadastrarPedido(tradicional);
-	}
+	}	
 	
 	public void cancelarPedidoTradicional(Long id) {
 		EntityManager eM = AbstractController.factory.createEntityManager();

@@ -14,7 +14,7 @@ public class ReservaDao extends AbstractDao<Reserva>{
 	@Override
 	public Class<Reserva> getTypeClass() {
 		// TODO Auto-generated method stub
-		return null;
+		return Reserva.class;
 	}
 
 	

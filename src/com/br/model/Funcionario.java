@@ -18,13 +18,13 @@ public class Funcionario extends Usuario {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
 	private double salario;
-	
 	private String cpf;
-	
 	private String cargo;
-
+	private String nome;
+	private String login;
+	private String senha;
+	private Endereco endereco;
 	
 	public Long getId() {
 		return id;
@@ -57,7 +57,44 @@ public class Funcionario extends Usuario {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("Nome: %s\n"
+				+ " Cargo: %s\n", getNome(), getCargo());
+	}
 	
 }

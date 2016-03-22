@@ -15,9 +15,9 @@ public class TradicionalController implements PedidoController<Tradicional> {
 	public void cadastrarPedido(Tradicional tradicional) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
+		TradicionalDao tradicionalDao = new TradicionalDao(eM);
 		
 		try {
-			TradicionalDao tradicionalDao = new TradicionalDao(eM);
 			tradicionalDao.save(tradicional);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();

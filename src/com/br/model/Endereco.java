@@ -1,6 +1,5 @@
 package com.br.model;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
@@ -57,5 +56,12 @@ public class Endereco {
 		this.telefone = telefone;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("Rua: %s\n"
+				+ "Número: %s\n"
+				+ "Bairro: %s\n", getRua(), getNumero(), getBairro());
+	}
 	
 }

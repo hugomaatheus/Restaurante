@@ -11,23 +11,10 @@ import javax.persistence.SequenceGenerator;
 @PrimaryKeyJoinColumn(name="pedido_id")
 public class Tradicional extends Pedido {
 	
-//	@Id
-//	@GeneratedValue(strategy=GenerationType.IDENTITY)
-//	private Long id;
 	
 	@ManyToOne
 	@JoinColumn(name="mesa_id")
 	private Mesa mesa;
-
-	
-	
-//	public Long getId() {
-//		return id;
-//	}
-//
-//	public void setId(Long id) {
-//		this.id = id;
-//	}
 
 	public Mesa getMesa() {
 		return mesa;
@@ -35,6 +22,12 @@ public class Tradicional extends Pedido {
 
 	public void setMesa(Mesa mesa) {
 		this.mesa = mesa;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("Mesa: %d", getMesa().getNumero());
 	}
 
 }

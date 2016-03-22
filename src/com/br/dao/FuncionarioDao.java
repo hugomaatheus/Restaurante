@@ -14,7 +14,7 @@ public class FuncionarioDao extends AbstractDao<Funcionario> {
 	@Override
 	public Class<Funcionario> getTypeClass() {
 		// TODO Auto-generated method stub
-		return null;
+		return Funcionario.class;
 	}
 	
 	

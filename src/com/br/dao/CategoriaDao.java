@@ -14,7 +14,7 @@ public class CategoriaDao extends AbstractDao<Categoria> {
 	@Override
 	public Class<Categoria> getTypeClass() {
 		// TODO Auto-generated method stub
-		return null;
+		return Categoria.class;
 	}
 	
 }
