@@ -22,7 +22,7 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 	
 	
 	//Manter Reserva
-	public void cadastrarReserva(Reserva reserva) {
+	public void cadastrarReserva(Reserva reserva, Funcionario f) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		Calendar c = Calendar.getInstance();
@@ -32,6 +32,7 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 			ReservaDao reservaDao = new ReservaDao(eM);
 			reserva.setStatus(Status.ATIVO);
 			reserva.setDataInicial(data);
+			reserva.setFuncionario(f);
 			reservaDao.save(reserva);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();

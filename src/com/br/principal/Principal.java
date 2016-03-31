@@ -2,8 +2,10 @@ package com.br.principal;
 
 import java.io.IOException;
 
-import com.br.controller.GerenteController;
-import com.br.model.Mesa;
+import com.br.controller.FuncionarioController;
+import com.br.model.Funcionario;
+import com.br.model.Reserva;
+import com.br.util.Status;
 
 
 
@@ -35,32 +37,32 @@ public class Principal {
 //		cC.cadastrarUsuario(c);
 		
 		//Testando FuncionarioController		
-//		FuncionarioController fC = new FuncionarioController();
-//		Reserva r = new Reserva();
+		FuncionarioController fC = new FuncionarioController();
+		Reserva r = new Reserva();
 //		Funcionario f = new Funcionario();
 //		
-//		f.setNome("Matheus");
+//		f.setNome("Matheus Freire");
 //		f.setStatus(Status.ATIVO);
 //		f.setCargo("Atendente");
-//		f.setCpf("33729842");
+//		f.setCpf("3529842");
 //		r.setNum_pessoa(4);
 //		r.setNome_Responsavel("Hugo");
-//		r.setFuncionario(f);
-//		fC.cadastrarUsuario(f);
-//		fC.cadastrarReserva(r);
+//		fC.cadastrarReserva(r, f);
+		r = fC.buscarReserva(1L);
+		System.out.println(r);
 		
 		//Testando GerenteController
-		GerenteController gC = new GerenteController();
+//		GerenteController gC = new GerenteController();
 //		Cardapio c = new Cardapio();
 //		Categoria categoria = new Categoria();
-		Mesa mesa = new Mesa();
+//		Mesa mesa = new Mesa();
 //		categoria.setNome("Whisky");
 //		c.setNome("Logan 12 anos");
 //		c.setCategoria(categoria);
 //		c.setPreco(130.00);
-		mesa.setCapacidade(4);
-		mesa.setNumero(2);
-		gC.cadastrarMesa(mesa);
+//		mesa.setCapacidade(4);
+//		mesa.setNumero(2);
+//		gC.cadastrarMesa(mesa);
 //		gC.cadastrarCardapio(c);
 //		gC.consultarCardapio(2L);
 //		gC.atualizarCardapio(c);

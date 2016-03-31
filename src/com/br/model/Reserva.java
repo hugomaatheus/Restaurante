@@ -2,6 +2,7 @@ package com.br.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -33,7 +34,7 @@ public class Reserva extends AbstractEntity {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_funcionario")
 	private Funcionario funcionario;
 	
