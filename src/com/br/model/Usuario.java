@@ -1,5 +1,6 @@
 package com.br.model;
 
+import com.br.util.Status;
 
 public abstract class Usuario extends AbstractEntity {
 	

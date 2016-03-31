@@ -1,5 +1,8 @@
 package com.br.controller;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
 
@@ -12,8 +15,8 @@ import com.br.model.Delivery;
 import com.br.model.Funcionario;
 import com.br.model.ItemPedido;
 import com.br.model.Reserva;
-import com.br.model.Status;
 import com.br.model.Tradicional;
+import com.br.util.Status;
 
 public class FuncionarioController implements UsuarioController <Funcionario> {
 	
@@ -22,10 +25,13 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 	public void cadastrarReserva(Reserva reserva) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
+		Calendar c = Calendar.getInstance();
+		Date data = c.getTime();
 
 		try {
 			ReservaDao reservaDao = new ReservaDao(eM);
 			reserva.setStatus(Status.ATIVO);
+			reserva.setDataInicial(data);
 			reservaDao.save(reserva);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();

@@ -1,5 +1,6 @@
 package com.br.model;
 
+import java.util.Date;
 import java.util.Collection;
 import java.util.Date;
 
@@ -18,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.br.util.Status;
 
 @Entity
 @SequenceGenerator(name="pedido_id", sequenceName="pedido_seq")

@@ -1,17 +1,23 @@
 package com.br.controller;
 
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
 
 import com.br.dao.ClienteDao;
+import com.br.dao.DeliveryDao;
 import com.br.model.Cliente;
 import com.br.model.Delivery;
-import com.br.model.Status;
+import com.br.util.Status;
 
 
 public class ClienteController implements UsuarioController<Cliente>{
 
-	private DeliveryController dController;
 	
 	//Manter cliente
 	@Override
@@ -99,17 +105,46 @@ public class ClienteController implements UsuarioController<Cliente>{
 	//Manter pedido
 	public Delivery buscarPedidoDelivery(Long id) {
 		
+		EntityManager eM = AbstractController.factory.createEntityManager();
 		Delivery d = null;
-		
-		d = dController.buscarPedido(id);
-		
-		return d;
+
+		try {
+			DeliveryDao deliveryDao = new DeliveryDao(eM);
+			d = (Delivery) deliveryDao.getById(id);
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+
+		return d;	
 	}
 	
 	
 	public void cadastrarPedido(Delivery delivery) {
 		
-		dController.cadastrarPedido(delivery);
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		Calendar c = Calendar.getInstance();
+		Date data = c.getTime();
+		Cliente cliente = new Cliente();
+		
+		try {
+			DeliveryDao deliveryDao = new DeliveryDao(eM);
+			ClienteDao cDao = new ClienteDao(eM);
+			Collection<Delivery> d = null;
+			
+			delivery.setStatus(Status.ANDAMENTO);
+			delivery.setData(data);
+			d.add(delivery);
+			cliente.setDeliverys(d);
+			deliveryDao.save(delivery);
+			cDao.update(cliente);
+			eM.getTransaction().begin();		
+			eM.getTransaction().commit();
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
 		
 	}
 	///////////////////////////////////////////

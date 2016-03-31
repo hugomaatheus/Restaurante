@@ -1,7 +1,7 @@
 package com.br.model;
 
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.br.util.Status;
+
 @Entity
 @SequenceGenerator(name="cliente_id", sequenceName="cliente_seq")
 public class Cliente extends Usuario {
@@ -24,9 +26,9 @@ public class Cliente extends Usuario {
 	private Long id;
 	
 	@OneToMany
-	@JoinTable(name="cliente_pedido", joinColumns=@JoinColumn(name="cliente_id"),
-	inverseJoinColumns=@JoinColumn(name="pedido_id"))
-	private List<Pedido> deliverys;
+	@JoinTable(name="cliente_delivery", joinColumns=@JoinColumn(name="cliente_id"),
+	inverseJoinColumns=@JoinColumn(name="delivery_id"))
+	private Collection<Delivery> delivery;
 	
 	private String login;
 	private String senha;
@@ -90,12 +92,12 @@ public class Cliente extends Usuario {
 		this.nome = nome;
 	}
 
-	public List<Pedido> getDeliverys() {
-		return deliverys;
+	public Collection<Delivery> getDeliverys() {
+		return delivery;
 	}
 
-	public void setDeliverys(List<Pedido> deliverys) {
-		this.deliverys = deliverys;
+	public void setDeliverys(Collection<Delivery> delivery) {
+		this.delivery = delivery;
 	}
 
 	public Long getId() {

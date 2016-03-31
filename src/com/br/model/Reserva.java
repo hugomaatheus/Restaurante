@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.br.util.Status;
+
 @Entity
 @SequenceGenerator(name="reserva_id", sequenceName="reserva_seq")
 public class Reserva extends AbstractEntity {

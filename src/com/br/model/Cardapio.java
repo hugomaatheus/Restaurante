@@ -1,5 +1,7 @@
 package com.br.model;
 
+import java.text.DecimalFormat;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -61,7 +63,7 @@ public class Cardapio extends AbstractEntity {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return String.format("Nome: %s", getNome());
+		return String.format("Nome: %s\n"
+				+ "Preço: R$%f\n", getNome(), (getPreco()));
 	}
 }
