@@ -1,5 +1,6 @@
 package com.br.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +23,7 @@ public class Cardapio extends AbstractEntity {
 
 	private double preco;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="fk_categoria")
 	private Categoria categoria;
 
@@ -57,5 +58,10 @@ public class Cardapio extends AbstractEntity {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("Nome: %s", getNome());
+	}
 }

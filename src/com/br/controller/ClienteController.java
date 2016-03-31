@@ -33,11 +33,14 @@ public class ClienteController implements UsuarioController<Cliente>{
 	}
 
 	@Override
-	public void desativarUsuario(Cliente cliente) {
+	public void desativarUsuario(Long id) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		ClienteDao clienteDao = new ClienteDao(eM);
+		Cliente cliente = new Cliente();
 		
 		try {
+			
+			cliente = clienteDao.getById(id);
 			
 			if(cliente.getStatus() == Status.ATIVO) {
 				cliente.setStatus(Status.INATIVO);
@@ -47,7 +50,7 @@ public class ClienteController implements UsuarioController<Cliente>{
 			}
 			else
 				JOptionPane.showConfirmDialog(null, "Você está tentando desativar"
-						+ "um cliente já inativo");
+						+ " um cliente já inativo");
 				
 		}catch (Exception e) {
 			eM.getTransaction().rollback();

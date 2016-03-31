@@ -1,7 +1,12 @@
 package com.br.controller;
 
-import javax.persistence.EntityManager;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import com.br.dao.CardapioDao;
+import com.br.dao.CategoriaDao;
 import com.br.dao.MesaDao;
 import com.br.model.Cardapio;
 import com.br.model.Categoria;
@@ -9,68 +14,15 @@ import com.br.model.Mesa;
 
 public class GerenteController extends FuncionarioController /*implements UsuarioController<Cliente>*/ {
 	
-	FuncionarioController fController;
-	CardapioController cardController;
-	CategoriaController catController;
-	MesaController mController;
+
 	
 	//Manter Cardapio
 	public void cadastrarCardapio(Cardapio c) {
-		cardController.cadastrarCardapio(c);
-	}
-	
-	public Cardapio consultarCardapio(Long id) {
-		return cardController.buscarCardapio(id);
-	}
-	
-	public void atualizarCardapio(Cardapio c) {
-		cardController.atualizarCardapio(c);
-	}
-	
-	public void excluirCardapio(Long id) {
-		cardController.removerCardapio(id);
-	}
-	////////////////////////////////////////
-	
-	
-	//Manter Categoria
-	public void cadastrarCategoria(Categoria c) {
-		catController.cadastrarCategoria(c);
-	}
-	
-	public void atualizarCategoria(Categoria c) {
-		catController.atualizarCategoria(c);
-	}
-	
-	public void excluirCategoria(Long id) {
-		Categoria c;
-		c = catController.buscarCategoria(id);
-		catController.removerCategoria(c);
-	}
-	
-	public Categoria consultarCategoria(Long id) {
-		return catController.buscarCategoria(id);
-	}
-	/////////////////////////////////////////////
-	
-	
-	//Manter mesa
-	public void cadastrarMesa(Mesa m) {
-		mController.cadastrarMesa(m);
-	}
-	
-	public void atualizarMesa(Mesa m) {
-		mController.atualizarMesa(m);
-	}
-	
-	public void excluirMesa(Long id) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
-		MesaDao mDao = new MesaDao(eM);
-		Mesa m;	
-		m = mController.buscarMesa(id);
-		
+		CardapioDao cDao = new CardapioDao(eM);
+
 		try {
-			mDao.delete(m);
+			cDao.save(c);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();
 		}catch (Exception e) {
@@ -79,6 +31,157 @@ public class GerenteController extends FuncionarioController /*implements Usuari
 		finally {
 			eM.close();
 		}
+	}
+	
+	public Cardapio consultarCardapio(Long id) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		Query query = eM.createNamedQuery("findAllCardapios");
+		List<Cardapio> cardapios = query.getResultList();
+		
+		return (Cardapio) cardapios;
+	}
+	
+	public void atualizarCardapio(Cardapio c) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		CardapioDao cDao = new CardapioDao(eM);
+		
+		try {
+			cDao.update(c);
+			eM.getTransaction().begin();
+			eM.getTransaction().commit();
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
+	}
+	
+	public void excluirCardapio(Long id) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		CardapioDao cDao = new CardapioDao(eM);
+		Cardapio c;
+		
+		try {
+			c = cDao.getById(id);
+			cDao.delete(c);
+			eM.getTransaction().begin();
+			eM.getTransaction().commit();
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
+	}
+	////////////////////////////////////////
+	
+	
+	//Manter Categoria
+	public void cadastrarCategoria(Categoria c) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		CategoriaDao categoriaDao = new CategoriaDao(eM);
+		
+		try {
+			categoriaDao.save(c);
+			eM.getTransaction().begin();
+			eM.getTransaction().commit();
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
+	}
+	
+	public void atualizarCategoria(Categoria c) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		CategoriaDao categoriaDao = new CategoriaDao(eM);
+		
+		 try {
+			 categoriaDao.update(c);
+			 eM.getTransaction().begin();
+			 eM.getTransaction().commit();
+		 }catch (Exception e) {
+			 eM.getTransaction().rollback();
+		 }
+		 finally {
+			eM.close();
+		}
+	}
+	
+	public void excluirCategoria(Long id) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		Categoria c = new Categoria();
+		
+		c = consultarCategoria(id);
+		
+		try {
+			CategoriaDao categoriaDao = new CategoriaDao(eM);
+			categoriaDao.delete(c);
+			eM.getTransaction().begin();
+			eM.getTransaction().commit();
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.getTransaction().rollback();
+		}
+	}
+	
+	public Categoria consultarCategoria(Long id) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		CategoriaDao cDao = new CategoriaDao(eM);
+		Categoria c = null;
+		
+		try {
+			c = cDao.getById(id);
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		
+		return c;
+	}
+	/////////////////////////////////////////////
+	
+	
+	//Manter mesa
+	public void cadastrarMesa(Mesa m) {
+		
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		MesaDao mesaDao = new MesaDao(eM);
+		
+		try {
+			mesaDao.save(m);
+			eM.getTransaction().begin();
+			eM.getTransaction().commit();
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
+	}
+	
+	public void atualizarMesa(Mesa m) {
+		
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		MesaDao mesaDao = new MesaDao(eM);
+		
+		try {
+			mesaDao.update(m);
+			eM.getTransaction().begin();
+			eM.getTransaction().commit();
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
+	}
+	
+	public void excluirMesa(Long id) {
+		//TODO
 	}
 	/////////////////////////////////////////////
 	

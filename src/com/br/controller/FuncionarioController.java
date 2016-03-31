@@ -3,52 +3,151 @@ package com.br.controller;
 import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
 
+import com.br.dao.DeliveryDao;
 import com.br.dao.FuncionarioDao;
+import com.br.dao.ItemPedidoDao;
+import com.br.dao.ReservaDao;
 import com.br.dao.TradicionalDao;
 import com.br.model.Delivery;
 import com.br.model.Funcionario;
+import com.br.model.ItemPedido;
 import com.br.model.Reserva;
 import com.br.model.Status;
 import com.br.model.Tradicional;
 
 public class FuncionarioController implements UsuarioController <Funcionario> {
 	
-	private TradicionalController tController = new TradicionalController();
-	private ReservaController rController;
-	private DeliveryController dController;
 	
 	//Manter Reserva
 	public void cadastrarReserva(Reserva reserva) {
-		rController.cadastrarReserva(reserva);
+		
+		EntityManager eM = AbstractController.factory.createEntityManager();
+
+		try {
+			ReservaDao reservaDao = new ReservaDao(eM);
+			reserva.setStatus(Status.ATIVO);
+			reservaDao.save(reserva);
+			eM.getTransaction().begin();
+			eM.getTransaction().commit();
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
 	}
-	
+
 	public Reserva buscarReserva(Long id) {
-		return rController.buscarReserva(id);
+		
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		Reserva r = null;
+		
+		try {
+			ReservaDao reservaDao = new ReservaDao(eM);
+			r = reservaDao.getById(id);
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		return r;
 	}
 	
 	public void atualizarReserva(Reserva reserva) {
-		rController.atualizarReserva(reserva);
+		
+		EntityManager eM = AbstractController.factory.createEntityManager();
+
+		try {
+			ReservaDao reservaDao = new ReservaDao(eM);
+			reservaDao.update(reserva);
+			eM.getTransaction().begin();
+			eM.getTransaction().commit();
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
 	}
 	
 	public void cancelarReserva(Long id) {
-		rController.cancelarReserva(id);
+		
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		ReservaDao reservaDao = new ReservaDao(eM);
+		Reserva reserva = reservaDao.getById(id);
+
+		try {
+			//Testa para caso esteja tentando cancelar uma reserva já cancelada
+			if(reserva.getStatus() == Status.ATIVO) {
+				reserva.setStatus(Status.CANCELADO);
+				reservaDao.update(reserva);
+				eM.getTransaction().begin();
+				eM.getTransaction().commit();
+			}
+
+			else
+				JOptionPane.showMessageDialog(null, "Você está tentando cancelar "
+						+ "uma reserva já cancelada!");
+
+
+
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
 	}
 	///////////////////////////////////////////
 	
 	
 	//Manter Pedido Tradicional
 	public Tradicional buscarPedidoTradicional(Long id) {
-		return tController.buscarPedido(id);
+		
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		Tradicional t = null;
+		
+		try {
+			TradicionalDao tradicionalDao = new TradicionalDao(eM);
+			t = (Tradicional) tradicionalDao.getById(id);
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		
+		return t;
 	}
 	
 	public void cadastrarPedidoTradicional(Tradicional tradicional) {
-		tController.cadastrarPedido(tradicional);
+		
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		TradicionalDao tradicionalDao = new TradicionalDao(eM);
+		ItemPedidoDao itemPedidoDao = new ItemPedidoDao(eM);
+
+		try {
+
+			tradicionalDao.save(tradicional);
+			for (ItemPedido itemPedido: tradicional.getItens()) {
+				if(itemPedido.getCardapio() == null) {
+					throw new Exception("Item sem cardápio");
+				}
+
+				itemPedidoDao.save(itemPedido);
+			}		
+
+			eM.getTransaction().begin();
+			eM.getTransaction().commit();
+
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
 	}	
 	
 	public void cancelarPedidoTradicional(Long id) {
+		
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		TradicionalDao tDao = new TradicionalDao(eM);
-		Tradicional tradicional = tController.buscarPedido(id);
+		Tradicional tradicional = buscarPedidoTradicional(id);
 		
 		try {
 			if(tradicional.getStatus() == Status.ATIVO)
@@ -71,7 +170,18 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 	
 	
 	public Delivery buscarPedidoDelivery(Long id) {
-		return dController.buscarPedido(id);
+		
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		Delivery d = null;
+
+		try {
+			DeliveryDao deliveryDao = new DeliveryDao(eM);
+			d = (Delivery) deliveryDao.getById(id);
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+
+		return d;
 	}
 	
 	
@@ -95,7 +205,7 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 	}
 
 	@Override
-	public void desativarUsuario(Funcionario f) {
+	public void desativarUsuario(Long id) {
 		//Funcionario não desativa funcionario
 		//Apenas o gerente!
 	}

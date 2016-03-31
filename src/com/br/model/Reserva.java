@@ -3,6 +3,8 @@ package com.br.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,6 +28,7 @@ public class Reserva extends AbstractEntity {
 	
 	private String nome_Responsavel;
 	
+	@Enumerated(EnumType.STRING)
 	private Status status;
 	
 	@ManyToOne

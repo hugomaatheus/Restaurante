@@ -1,5 +1,6 @@
 package com.br.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,7 +13,7 @@ import javax.persistence.SequenceGenerator;
 public class Tradicional extends Pedido {
 	
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="mesa_id")
 	private Mesa mesa;
 

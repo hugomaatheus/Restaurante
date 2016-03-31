@@ -5,14 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
 
 
 @Entity
 @SequenceGenerator(name="funcionario_id", sequenceName="funcionario_seq")
-//@Inheritance(strategy=InheritanceType.JOINED)
 public class Funcionario extends Usuario {	
 	
 	@Id

@@ -11,9 +11,6 @@ import javax.persistence.SequenceGenerator;
 @PrimaryKeyJoinColumn(name="pedido_id")
 public class Delivery extends Pedido {
 	
-//	@Id
-//	@GeneratedValue(strategy=GenerationType.IDENTITY)
-//	private Long id;
 	
 	private Double trocoPara;
 	
@@ -21,15 +18,6 @@ public class Delivery extends Pedido {
 	@JoinColumn(name="fk_cliente")
 	private Cliente cliente;
 	
-	
-	
-//	public Long getId() {
-//		return id;
-//	}
-//
-//	public void setId(Long id) {
-//		this.id = id;
-//	}
 
 	public Double getTrocoPara() {
 		return trocoPara;
