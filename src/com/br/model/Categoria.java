@@ -30,5 +30,11 @@ public class Categoria extends AbstractEntity {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("Nome: %s\n", getNome());
+	}
 
 }

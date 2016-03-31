@@ -3,8 +3,7 @@ package com.br.principal;
 import java.io.IOException;
 
 import com.br.controller.GerenteController;
-import com.br.model.Cardapio;
-import com.br.model.Categoria;
+import com.br.model.Mesa;
 
 
 
@@ -54,12 +53,22 @@ public class Principal {
 		GerenteController gC = new GerenteController();
 //		Cardapio c = new Cardapio();
 //		Categoria categoria = new Categoria();
-		
-//		categoria.setNome("Bebidas");
+		Mesa mesa = new Mesa();
+//		categoria.setNome("Whisky");
 //		c.setNome("Logan 12 anos");
 //		c.setCategoria(categoria);
-//		c.setPreco(120.00);
+//		c.setPreco(130.00);
+		mesa.setCapacidade(4);
+		mesa.setNumero(2);
+		gC.cadastrarMesa(mesa);
 //		gC.cadastrarCardapio(c);
-		gC.consultarCardapio(2L);
+//		gC.consultarCardapio(2L);
+//		gC.atualizarCardapio(c);
+//		gC.excluirCardapio(4L);
+//		gC.atualizarCategoria(categoria);
+//		gC.excluirCategoria(3L);
+//		categoria = gC.consultarCategoria(2L);
+//		System.out.println(categoria);
+		
 	}
 }

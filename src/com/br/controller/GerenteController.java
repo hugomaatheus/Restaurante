@@ -1,5 +1,8 @@
 package com.br.controller;
 
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,10 +10,16 @@ import javax.persistence.Query;
 
 import com.br.dao.CardapioDao;
 import com.br.dao.CategoriaDao;
+import com.br.dao.FuncionarioDao;
 import com.br.dao.MesaDao;
+import com.br.dao.ReservaDao;
 import com.br.model.Cardapio;
 import com.br.model.Categoria;
+import com.br.model.Funcionario;
 import com.br.model.Mesa;
+import com.br.model.Reserva;
+import com.br.model.Tradicional;
+import com.br.util.Status;
 
 public class GerenteController extends FuncionarioController /*implements UsuarioController<Cliente>*/ {
 	
@@ -112,12 +121,12 @@ public class GerenteController extends FuncionarioController /*implements Usuari
 	
 	public void excluirCategoria(Long id) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
+		CategoriaDao categoriaDao = new CategoriaDao(eM);
 		Categoria c = new Categoria();
 		
 		c = consultarCategoria(id);
 		
 		try {
-			CategoriaDao categoriaDao = new CategoriaDao(eM);
 			categoriaDao.delete(c);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();
@@ -150,8 +159,24 @@ public class GerenteController extends FuncionarioController /*implements Usuari
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		MesaDao mesaDao = new MesaDao(eM);
+		Collection<Tradicional> tradicionais = null;
+		Collection<Reserva> reservas = null;
+		Calendar c = Calendar.getInstance();
+		Date data = c.getTime();
+//		Tradicional t = new Tradicional();
+		Reserva r = new Reserva();
+		Funcionario f = new Funcionario();
+		ReservaDao rDao = new ReservaDao(eM);
+		FuncionarioDao fDao = new FuncionarioDao(eM);
 		
 		try {
+			f.setNome("Matheus Freire");
+			r.setDataInicial(data);
+			r.setNome_Responsavel(f.getNome());
+			r.setNum_pessoa(4);
+			r.setStatus(Status.ATIVO);
+			fDao.save(f);
+			rDao.save(r);
 			mesaDao.save(m);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();

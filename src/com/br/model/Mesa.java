@@ -1,7 +1,7 @@
 package com.br.model;
 
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,28 +27,28 @@ public class Mesa extends AbstractEntity {
 	@OneToMany
 	@JoinTable(name="mesa_PedTradicional", joinColumns=@JoinColumn(name="mesa_id"),
 	inverseJoinColumns=@JoinColumn(name="tradicional_id"))
-	private List<Pedido> tradicionais;
+	private Collection<Tradicional> tradicionais;
 	
 	@OneToMany
 	@JoinTable(name="mesa_Reserva", joinColumns=@JoinColumn(name="mesa_id"),
 	inverseJoinColumns=@JoinColumn(name="reserva_id"))
-	private List<Reserva> reservas;
+	private Collection<Reserva> reservas;
 	
 	
 
-	public List<Reserva> getReservas() {
+	public Collection<Reserva> getReservas() {
 		return reservas;
 	}
 
-	public void setReservas(List<Reserva> reservas) {
+	public void setReservas(Collection<Reserva> reservas) {
 		this.reservas = reservas;
 	}
 
-	public List<Pedido> getTradicionais() {
+	public Collection<Tradicional> getTradicionais() {
 		return tradicionais;
 	}
 
-	public void setTradicionais(List<Pedido> tradicionais) {
+	public void setTradicionais(Collection<Tradicional> tradicionais) {
 		this.tradicionais = tradicionais;
 	}
 
@@ -76,9 +76,6 @@ public class Mesa extends AbstractEntity {
 		this.capacidade = capacidade;
 	}
 
-	//private List<Pedido> pedidos;
-	
-	//private List<Reserva> reservas;
 	
 	
 }
