@@ -4,6 +4,8 @@ package com.br.model;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+
+import com.br.util.Status;
 
 @Entity
 @SequenceGenerator(name="mesa_id", sequenceName="mesa_seq")
@@ -24,6 +28,9 @@ public class Mesa extends AbstractEntity {
 	
 	private int capacidade;
 	
+	@Enumerated(EnumType.STRING)
+	private Status status;
+	
 	@OneToMany
 	@JoinTable(name="mesa_PedTradicional", joinColumns=@JoinColumn(name="mesa_id"),
 	inverseJoinColumns=@JoinColumn(name="tradicional_id"))
@@ -35,6 +42,14 @@ public class Mesa extends AbstractEntity {
 	private Collection<Reserva> reservas;
 	
 	
+	
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
 	public Collection<Reserva> getReservas() {
 		return reservas;

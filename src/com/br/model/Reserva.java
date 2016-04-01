@@ -82,6 +82,11 @@ public class Reserva extends AbstractEntity {
 		this.funcionario = funcionario;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("Nome responsável: %s\nData inicial: %s\nStatus: $s\n", getNome_Responsavel(), getDataInicial(), getNum_pessoa(), getStatus());
+	}
 	
 
 }

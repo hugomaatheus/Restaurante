@@ -6,5 +6,7 @@ public enum Status {
 	PENDENTE,
 	ATENDIDO,
 	ANDAMENTO,
-	CANCELADO
+	CANCELADO,
+	OCUPADA,
+	LIVRE
 }

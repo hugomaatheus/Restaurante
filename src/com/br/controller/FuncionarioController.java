@@ -6,14 +6,18 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
 
+import com.br.dao.CardapioDao;
 import com.br.dao.DeliveryDao;
 import com.br.dao.FuncionarioDao;
-import com.br.dao.ItemPedidoDao;
+import com.br.dao.PedidoDao;
 import com.br.dao.ReservaDao;
 import com.br.dao.TradicionalDao;
+import com.br.model.Cardapio;
 import com.br.model.Delivery;
 import com.br.model.Funcionario;
 import com.br.model.ItemPedido;
+import com.br.model.Mesa;
+import com.br.model.Pedido;
 import com.br.model.Reserva;
 import com.br.model.Tradicional;
 import com.br.util.Status;
@@ -61,9 +65,9 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 	public void atualizarReserva(Reserva reserva) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
-
+		ReservaDao reservaDao = new ReservaDao(eM);
+		
 		try {
-			ReservaDao reservaDao = new ReservaDao(eM);
 			reservaDao.update(reserva);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();
@@ -122,33 +126,45 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 		return t;
 	}
 	
-	public void cadastrarPedidoTradicional(Tradicional tradicional) {
+	public void cadastrarPedidoTradicional(Tradicional tradicional, 
+			Pedido pedido, ItemPedido i, Mesa m, Funcionario f, Cardapio cardapio) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		TradicionalDao tradicionalDao = new TradicionalDao(eM);
-		ItemPedidoDao itemPedidoDao = new ItemPedidoDao(eM);
+		PedidoDao pDao = new PedidoDao(eM);
+		Calendar c = Calendar.getInstance();
+		Date data = c.getTime();
 
 		try {
+			
+			//Pessoas demais para a mesa
+			if(m.getCapacidade() < m.getNumero())
+				throw new Exception("Número de pessoas na mesa excede a capacidade da mesa!");
 
-			tradicionalDao.save(tradicional);
-			for (ItemPedido itemPedido: tradicional.getItens()) {
-				if(itemPedido.getCardapio() == null) {
-					throw new Exception("Item sem cardápio");
-				}
-
-				itemPedidoDao.save(itemPedido);
-			}		
-
-			eM.getTransaction().begin();
-			eM.getTransaction().commit();
+			else {
+				tradicional.setData(data);
+				m.setStatus(Status.OCUPADA);
+				tradicional.setMesa(m);
+				pedido.setData(data);
+				pedido.setVendedor(f);
+				i.setPedido(pedido);
+				i.setCardapio(cardapio);
+				pDao.update(pedido);
+				tradicionalDao.update(tradicional);
+				eM.getTransaction().begin();
+				eM.getTransaction().commit();
+			}
+			
 
 		}catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
 			eM.getTransaction().rollback();
 		}
 		finally {
 			eM.close();
 		}
 	}	
+	
 	
 	public void cancelarPedidoTradicional(Long id) {
 		
@@ -251,5 +267,19 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 		return f;
 	}
 	///////////////////////////////////////////
+	
+	public Cardapio buscarCardapio(Long id) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		CardapioDao cDao = new CardapioDao(eM);
+		Cardapio c = new Cardapio();
+		
+		try {
+			c = cDao.getById(id);
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		
+		return c;
+	}
 	
 }

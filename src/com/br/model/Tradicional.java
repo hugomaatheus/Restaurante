@@ -13,7 +13,7 @@ import javax.persistence.SequenceGenerator;
 public class Tradicional extends Pedido {
 	
 	
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="mesa_id")
 	private Mesa mesa;
 

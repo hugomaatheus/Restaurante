@@ -26,11 +26,12 @@ public class GerenteController extends FuncionarioController /*implements Usuari
 
 	
 	//Manter Cardapio
-	public void cadastrarCardapio(Cardapio c) {
+	public void cadastrarCardapio(Cardapio c, Categoria categoria) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		CardapioDao cDao = new CardapioDao(eM);
 
 		try {
+			c.setCategoria(categoria);
 			cDao.save(c);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();

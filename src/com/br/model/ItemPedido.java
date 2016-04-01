@@ -21,11 +21,11 @@ public class ItemPedido extends AbstractEntity {
 	
 	private int qtd;
 	
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_pedido")
 	private Pedido pedido;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_cardapio")
 	private Cardapio cardapio;
 

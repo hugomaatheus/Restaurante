@@ -25,7 +25,7 @@ public class Cardapio extends AbstractEntity {
 
 	private double preco;
 	
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_categoria")
 	private Categoria categoria;
 

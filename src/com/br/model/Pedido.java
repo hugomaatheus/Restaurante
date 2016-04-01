@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -37,11 +38,11 @@ public class Pedido extends AbstractEntity {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_funcionario")
 	private Funcionario vendedor;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="pedido_itemCardapio", joinColumns=@JoinColumn(name="pedido_id"),
 	inverseJoinColumns=@JoinColumn(name="itemCardapio_id"))
 	private Collection<ItemPedido> itens;
