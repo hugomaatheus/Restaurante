@@ -45,14 +45,14 @@ public class Principal {
 //		cC.cadastrarUsuario(c);
 		
 		//Testando FuncionarioController		
-		FuncionarioController fC = new FuncionarioController();
-		Reserva r = new Reserva();
-		Funcionario f = new Funcionario();
-		Mesa m = new Mesa();
-		Tradicional t = new Tradicional();
-		ItemPedido i = new ItemPedido();
-		Cardapio c = new Cardapio();
-		Pedido p = new Pedido();
+//		FuncionarioController fC = new FuncionarioController();
+//		Reserva r = new Reserva();
+//		Funcionario f = new Funcionario();
+//		Mesa m = new Mesa();
+//		Tradicional t = new Tradicional();
+//		ItemPedido i = new ItemPedido();
+//		Cardapio c = new Cardapio();
+//		Pedido p = new Pedido();
 //		
 //		f.setNome("Matheus Freire");
 //		f.setStatus(Status.ATIVO);
@@ -66,24 +66,24 @@ public class Principal {
 //		fC.atualizarReserva(r);
 //		fC.cancelarReserva(r.getId());
 //		System.out.println(r);
-		c = fC.buscarCardapio(2L);
-		f = fC.buscarUsuario(2L);
-		Collection<ItemPedido> itens = new ArrayList<>();
-		p.setStatus(Status.PENDENTE);
-		p.setVendedor(f);
-		i.setQtd(2);
+//		c = fC.buscarCardapio(2L);
+//		f = fC.buscarUsuario(2L);
+//		Collection<ItemPedido> itens = new ArrayList<>();
+//		p.setStatus(Status.PENDENTE);
+//		p.setVendedor(f);
+//		i.setQtd(2);
 //		i.setPedido(p);
 //		i.setCardapio(c);
-		itens.add(i);
-		p.setItens(itens);
-		t.setStatus(Status.ATIVO);
-		Collection<Tradicional> tradicionais = new ArrayList<>();
-		tradicionais.add(t);
-		m.setCapacidade(4);
-		m.setNumero(3);
-		m.setTradicionais(tradicionais);
+//		itens.add(i);
+//		p.setItens(itens);
+//		t.setStatus(Status.ATIVO);
+//		Collection<Tradicional> tradicionais = new ArrayList<>();
+//		tradicionais.add(t);
+//		m.setCapacidade(4);
+//		m.setNumero(3);
+//		m.setTradicionais(tradicionais);
 //		t.setMesa(m);
-		fC.cadastrarPedidoTradicional(t, p, i, m, f, c);
+//		fC.cadastrarPedidoTradicional(t, p, i, m, f, c);
 		
 		//Testando GerenteController
 //		GerenteController gC = new GerenteController();
