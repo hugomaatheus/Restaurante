@@ -43,7 +43,7 @@ public class GerenteController extends FuncionarioController /*implements Usuari
 		}
 	}
 	
-	public void consultarCardapio(Long id) {
+	public void consultarCardapio() {
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		Query query = eM.createNamedQuery("findAllCardapios");
 		List<Cardapio> cardapios = query.getResultList();

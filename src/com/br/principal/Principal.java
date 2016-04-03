@@ -1,20 +1,10 @@
 package com.br.principal;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import com.br.controller.FuncionarioController;
 import com.br.controller.GerenteController;
-import com.br.model.Cardapio;
-import com.br.model.Endereco;
-import com.br.model.Funcionario;
-import com.br.model.ItemPedido;
-import com.br.model.Mesa;
-import com.br.model.Pedido;
-import com.br.model.Reserva;
-import com.br.model.Tradicional;
-import com.br.util.Status;
+import com.br.model.Categoria;
 
 
 
@@ -46,14 +36,14 @@ public class Principal {
 //		cC.cadastrarUsuario(c);
 		
 		//Testando FuncionarioController		
-		FuncionarioController fC = new FuncionarioController();
+//		FuncionarioController fC = new FuncionarioController();
 //		Reserva r = new Reserva();
 //		Funcionario f = new Funcionario();
 //		Endereco e = new Endereco();
 //		Mesa m = new Mesa();
 //		Tradicional t = new Tradicional();
 //		ItemPedido i = new ItemPedido();
-		Cardapio c = new Cardapio();
+//		Cardapio c = new Cardapio();
 //		Pedido p = new Pedido();
 //		
 //		f.setNome("Matheus Freire");
@@ -107,23 +97,26 @@ public class Principal {
 		
 		
 		//Testando GerenteController
-//		GerenteController gC = new GerenteController();
+		GerenteController gC = new GerenteController();
 //		Cardapio c = new Cardapio();
 //		Categoria categoria = new Categoria();
 //		Mesa mesa = new Mesa();
-//		categoria.setNome("Whisky");
+//		c = gC.buscarCardapio(1L);
+//		categoria = gC.consultarCategoria(2L);
+//		categoria.setNome("Cerveja");
 //		c.setNome("Logan 12 anos");
 //		c.setCategoria(categoria);
-//		c.setPreco(130.00);
+//		c.setPreco(120.00);
 //		mesa.setCapacidade(4);
 //		mesa.setNumero(2);
 //		gC.cadastrarMesa(mesa);
 //		gC.cadastrarCardapio(c, categoria);
-//		gC.consultarCardapio(2L);
+//		gC.consultarCardapio();
 //		gC.atualizarCardapio(c);
-//		gC.excluirCardapio(4L);
+//		gC.cadastrarCategoria(categoria);
+//		gC.excluirCardapio(1L);
 //		gC.atualizarCategoria(categoria);
-//		gC.excluirCategoria(3L);
+//		gC.excluirCategoria(2L);
 //		categoria = gC.consultarCategoria(2L);
 //		System.out.println(categoria);
 		
