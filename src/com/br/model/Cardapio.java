@@ -1,6 +1,5 @@
 package com.br.model;
 
-import java.text.DecimalFormat;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

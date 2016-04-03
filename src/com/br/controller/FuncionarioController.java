@@ -231,6 +231,7 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 		FuncionarioDao fDao = new FuncionarioDao(eM);
 		
 		try {
+			f.setStatus(Status.ATIVO);
 			fDao.save(f);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();

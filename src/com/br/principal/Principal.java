@@ -7,6 +7,7 @@ import java.util.Collection;
 import com.br.controller.FuncionarioController;
 import com.br.controller.GerenteController;
 import com.br.model.Cardapio;
+import com.br.model.Endereco;
 import com.br.model.Funcionario;
 import com.br.model.ItemPedido;
 import com.br.model.Mesa;
@@ -48,10 +49,11 @@ public class Principal {
 		FuncionarioController fC = new FuncionarioController();
 //		Reserva r = new Reserva();
 //		Funcionario f = new Funcionario();
+//		Endereco e = new Endereco();
 //		Mesa m = new Mesa();
-		Tradicional t = new Tradicional();
+//		Tradicional t = new Tradicional();
 //		ItemPedido i = new ItemPedido();
-//		Cardapio c = new Cardapio();
+		Cardapio c = new Cardapio();
 //		Pedido p = new Pedido();
 //		
 //		f.setNome("Matheus Freire");
@@ -66,7 +68,8 @@ public class Principal {
 //		fC.atualizarReserva(r);
 //		fC.cancelarReserva(r.getId());
 //		System.out.println(r);
-//		c = fC.buscarCardapio(2L);
+//		c = fC.buscarCardapio(1L);
+//		System.out.println(c.toString());
 //		f = fC.buscarUsuario(2L);
 //		Collection<ItemPedido> itens = new ArrayList<>();
 //		p.setStatus(Status.PENDENTE);
@@ -84,8 +87,24 @@ public class Principal {
 //		m.setTradicionais(tradicionais);
 //		t.setMesa(m);
 //		fC.cadastrarPedidoTradicional(t, p, i, m, f, c);
-		t = fC.buscarPedidoTradicional(4L);
-		fC.cancelarPedidoTradicional(t.getId());
+//		t = fC.buscarPedidoTradicional(4L);
+//		fC.cancelarPedidoTradicional(t.getId());
+//		e.setNumero("28");
+//		e.setBairro("agua fria");
+//		e.setComplemento("centro");
+//		e.setRua("DSHDS");
+//		e.setTelefone("1213243");
+//		f.setNome("Neto");
+//		f.setCpf("3424234");
+//		f.setEmail("hfgidfgdfjg");
+//		f.setLogin("sfsdfsfs");
+//		f.setSenha("123");
+//		f = fC.buscarUsuario(4L);
+//		f.setEndereco(e);
+//		f.setSalario(800.00);
+//		fC.cadastrarUsuario(f);
+//		fC.atualizarUsuario(f);
+		
 		
 		//Testando GerenteController
 //		GerenteController gC = new GerenteController();
