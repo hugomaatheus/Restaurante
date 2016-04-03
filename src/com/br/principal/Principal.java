@@ -45,11 +45,11 @@ public class Principal {
 //		cC.cadastrarUsuario(c);
 		
 		//Testando FuncionarioController		
-//		FuncionarioController fC = new FuncionarioController();
+		FuncionarioController fC = new FuncionarioController();
 //		Reserva r = new Reserva();
 //		Funcionario f = new Funcionario();
 //		Mesa m = new Mesa();
-//		Tradicional t = new Tradicional();
+		Tradicional t = new Tradicional();
 //		ItemPedido i = new ItemPedido();
 //		Cardapio c = new Cardapio();
 //		Pedido p = new Pedido();
@@ -84,6 +84,8 @@ public class Principal {
 //		m.setTradicionais(tradicionais);
 //		t.setMesa(m);
 //		fC.cadastrarPedidoTradicional(t, p, i, m, f, c);
+		t = fC.buscarPedidoTradicional(6L);
+		System.out.println(t.toString());
 		
 		//Testando GerenteController
 //		GerenteController gC = new GerenteController();

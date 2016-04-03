@@ -28,7 +28,7 @@ public class Tradicional extends Pedido {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return String.format("Mesa: %d", getMesa().getNumero());
+		return String.format("Mesa: %d %d %d", getMesa().getNumero(), getMesa().getId(), getId());
 	}
 
 }

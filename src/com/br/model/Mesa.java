@@ -91,6 +91,10 @@ public class Mesa extends AbstractEntity {
 		this.capacidade = capacidade;
 	}
 
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("%d %d %s", getId(), getNumero(), getStatus());
+	}
 	
 }

@@ -111,19 +111,20 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 	
 	
 	//Manter Pedido Tradicional
-	public Tradicional buscarPedidoTradicional(Long id) {
+	//Buscar mesa do pedido tradicional
+	public Mesa buscarMesaTradicional(Long id) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
-		Tradicional t = null;
-		
+		Mesa m = null;
 		try {
 			TradicionalDao tradicionalDao = new TradicionalDao(eM);
-			t = (Tradicional) tradicionalDao.getById(id);
+			Tradicional t = (Tradicional) tradicionalDao.getById(id);
+			m = t.getMesa();
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
 		}
 		
-		return t;
+		return m;
 	}
 	
 	public void cadastrarPedidoTradicional(Tradicional tradicional, 
@@ -163,7 +164,21 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 		finally {
 			eM.close();
 		}
-	}	
+	}
+	
+	public Tradicional buscarPedidoTradicional(Long id) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		TradicionalDao tDao = new TradicionalDao(eM);
+		Tradicional t = null;
+		
+		try {
+			t = (Tradicional) tDao.getById(id);
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		
+		return t;
+	}
 	
 	
 	public void cancelarPedidoTradicional(Long id) {
