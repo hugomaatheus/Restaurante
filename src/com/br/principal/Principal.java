@@ -84,8 +84,8 @@ public class Principal {
 //		m.setTradicionais(tradicionais);
 //		t.setMesa(m);
 //		fC.cadastrarPedidoTradicional(t, p, i, m, f, c);
-		t = fC.buscarPedidoTradicional(6L);
-		System.out.println(t.toString());
+		t = fC.buscarPedidoTradicional(4L);
+		fC.cancelarPedidoTradicional(t.getId());
 		
 		//Testando GerenteController
 //		GerenteController gC = new GerenteController();

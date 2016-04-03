@@ -166,6 +166,7 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 		}
 	}
 	
+	//Buscar pedido tradicional
 	public Tradicional buscarPedidoTradicional(Long id) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		TradicionalDao tDao = new TradicionalDao(eM);
@@ -185,10 +186,10 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		TradicionalDao tDao = new TradicionalDao(eM);
-		Tradicional tradicional = buscarPedidoTradicional(id);
+		Tradicional tradicional = (Tradicional) tDao.getById(id);
 		
 		try {
-			if(tradicional.getStatus() == Status.ATIVO)
+			if(tradicional.getStatus() == Status.ATIVO || tradicional.getStatus() == null)
 				tradicional.setStatus(Status.CANCELADO);
 			else
 				JOptionPane.showMessageDialog(null, "Você está tentando cancelar "
