@@ -1,5 +1,6 @@
 package com.br.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -21,7 +22,7 @@ import com.br.model.Reserva;
 import com.br.model.Tradicional;
 import com.br.util.Status;
 
-public class GerenteController extends FuncionarioController /*implements UsuarioController<Cliente>*/ {
+public class GerenteController extends FuncionarioController implements UsuarioController<Funcionario> {
 	
 
 	
@@ -156,29 +157,25 @@ public class GerenteController extends FuncionarioController /*implements Usuari
 	
 	
 	//Manter mesa
-	public void cadastrarMesa(Mesa m) {
+	public void cadastrarMesa(Funcionario f, Reserva r, Mesa m) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
-		MesaDao mesaDao = new MesaDao(eM);
-		Collection<Tradicional> tradicionais = null;
-		Collection<Reserva> reservas = null;
+		ReservaDao rDao = new ReservaDao(eM);
+		MesaDao mDao = new MesaDao(eM);
+		Collection<Tradicional> tradicionais = new ArrayList<>();
+		Collection<Reserva> reservas = new ArrayList<>();
 		Calendar c = Calendar.getInstance();
 		Date data = c.getTime();
-//		Tradicional t = new Tradicional();
-		Reserva r = new Reserva();
-		Funcionario f = new Funcionario();
-		ReservaDao rDao = new ReservaDao(eM);
-		FuncionarioDao fDao = new FuncionarioDao(eM);
 		
 		try {
-			f.setNome("Matheus Freire");
 			r.setDataInicial(data);
-			r.setNome_Responsavel(f.getNome());
-			r.setNum_pessoa(4);
+			r.setNome_Responsavel(f.getNome());;
 			r.setStatus(Status.ATIVO);
-			fDao.save(f);
+			reservas.add(r);
+			m.setStatus(Status.OCUPADA);
+			m.setReservas(reservas);
+			mDao.save(m);
 			rDao.save(r);
-			mesaDao.save(m);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();
 		}catch (Exception e) {
@@ -207,32 +204,102 @@ public class GerenteController extends FuncionarioController /*implements Usuari
 	}
 	
 	public void excluirMesa(Long id) {
-		//TODO
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		MesaDao mesaDao = new MesaDao(eM);
+		Mesa m = mesaDao.getById(id);
+//		Query query = eM.createNamedQuery("fecharMesa");
+		
+		try {
+//			query.setParameter("id", id);
+//			query.executeUpdate();
+//			mesaDao.delete(m);
+			eM.getTransaction().begin();
+			eM.getTransaction().commit();
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
 	}
 	/////////////////////////////////////////////
 	
+	@Override
+	public void cadastrarUsuario(Funcionario f) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		FuncionarioDao fDao = new FuncionarioDao(eM);
+		
+		try {
+			f.setStatus(Status.ATIVO);
+			fDao.save(f);
+			eM.getTransaction().begin();
+			eM.getTransaction().commit();
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
+		
+	}
+
 //	@Override
-//	public void cadastrarUsuario(T entity) {
-//		// TODO Auto-generated method stub
+//	public void desativarUsuario(Long id) {
 //		
 //	}
-//
-//	@Override
-//	public void desativarUsuario(T entity) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	@Override
-//	public void atualizarUsuario(T entity) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	@Override
-//	public T buscarUsuario(Long id) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	
+	public void excluirUsuario(Long id) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		FuncionarioDao fDao = new FuncionarioDao(eM);
+		Funcionario f = fDao.getById(id);
+		
+		try{
+			fDao.delete(f);
+			eM.getTransaction().begin();
+			eM.getTransaction().commit();
+		}catch(Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
+	}
+	
+
+	@Override
+	public void atualizarUsuario(Funcionario f) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		FuncionarioDao fDao = new FuncionarioDao(eM);
+		
+		try {
+			fDao.update(f);
+			eM.getTransaction().begin();
+			eM.getTransaction().commit();
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
+		
+	}
+
+	@Override
+	public Funcionario buscarUsuario(Long id) {
+		EntityManager eM = AbstractController.factory.createEntityManager();
+		FuncionarioDao fDao = new FuncionarioDao(eM);
+		Funcionario f = null;
+		
+		try {
+			f = fDao.getById(id);
+		}catch (Exception e) {
+			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
+		}
+		
+		return f;
+	}
 
 }

@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
@@ -18,6 +19,8 @@ import com.br.util.Status;
 
 @Entity
 @SequenceGenerator(name="mesa_id", sequenceName="mesa_seq")
+//@NamedQuery(name="fecharMesa", query="DELETE FROM Mesa m "
+//		+ "WHERE m IN(SELECT t.mesa FROM Tradicional WHERE t.mesa.id LIKE :id)")
 public class Mesa extends AbstractEntity {
 	
 	@Id

@@ -2,9 +2,11 @@ package com.br.principal;
 
 import java.io.IOException;
 
-import com.br.controller.FuncionarioController;
 import com.br.controller.GerenteController;
-import com.br.model.Categoria;
+import com.br.model.Endereco;
+import com.br.model.Funcionario;
+import com.br.model.Mesa;
+import com.br.model.Reserva;
 
 
 
@@ -97,19 +99,42 @@ public class Principal {
 		
 		
 		//Testando GerenteController
-		GerenteController gC = new GerenteController();
+//		GerenteController gC = new GerenteController();
 //		Cardapio c = new Cardapio();
 //		Categoria categoria = new Categoria();
 //		Mesa mesa = new Mesa();
+//		Reserva r = new Reserva();
+//		Funcionario f = new Funcionario();
+//		Endereco e = new Endereco();
 //		c = gC.buscarCardapio(1L);
 //		categoria = gC.consultarCategoria(2L);
 //		categoria.setNome("Cerveja");
 //		c.setNome("Logan 12 anos");
 //		c.setCategoria(categoria);
 //		c.setPreco(120.00);
+//		f = gC.buscarUsuario(2L);
+//		r.setFuncionario(f);
+//		r.setNum_pessoa(1);
 //		mesa.setCapacidade(4);
-//		mesa.setNumero(2);
-//		gC.cadastrarMesa(mesa);
+//		mesa.setNumero(r.getNum_pessoa());
+//		gC.cadastrarMesa(f, r, mesa);
+//		gC.excluirMesa(2L);
+//		e.setBairro("sdfsdf");
+//		e.setComplemento("dscsd");
+//		e.setNumero("90A");
+//		e.setRua("khjhk");
+//		e.setTelefone("6758");
+//		f.setCargo("Cozinheiro");
+//		f.setCpf("423432");
+//		f = gC.buscarUsuario(6L);
+//		f.setEmail("abc");
+//		f.setLogin("123abc");
+//		gC.atualizarUsuario(f);
+//		f.setNome("dshfkjs");
+//		f.setSalario(900.00);
+//		f.setEndereco(e);
+//		gC.cadastrarUsuario(f);
+//		gC.excluirUsuario(2L);
 //		gC.cadastrarCardapio(c, categoria);
 //		gC.consultarCardapio();
 //		gC.atualizarCardapio(c);
