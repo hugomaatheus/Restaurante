@@ -22,7 +22,7 @@ import com.br.model.Reserva;
 import com.br.model.Tradicional;
 import com.br.util.Status;
 
-public class FuncionarioController implements UsuarioController <Funcionario> {
+public class FuncionarioController extends AbstractController implements UsuarioController <Funcionario> {
 	
 	
 	//Manter Reserva
@@ -146,8 +146,8 @@ public class FuncionarioController implements UsuarioController <Funcionario> {
 				tradicional.setData(data);
 				m.setStatus(Status.OCUPADA);
 				tradicional.setMesa(m);
+				tradicional.setVendedor(f);
 				pedido.setData(data);
-				pedido.setVendedor(f);
 				i.setPedido(pedido);
 				i.setCardapio(cardapio);
 				pDao.update(pedido);

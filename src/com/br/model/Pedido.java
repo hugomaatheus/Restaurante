@@ -38,10 +38,6 @@ public class Pedido extends AbstractEntity {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fk_funcionario")
-	private Funcionario vendedor;
-	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="pedido_itemCardapio", joinColumns=@JoinColumn(name="pedido_id"),
 	inverseJoinColumns=@JoinColumn(name="itemCardapio_id"))
@@ -77,14 +73,6 @@ public class Pedido extends AbstractEntity {
 
 	public void setItens(Collection<ItemPedido> itens) {
 		this.itens = itens;
-	}
-
-	public Funcionario getVendedor() {
-		return vendedor;
-	}
-
-	public void setVendedor(Funcionario vendedor) {
-		this.vendedor = vendedor;
 	}
 	
 	

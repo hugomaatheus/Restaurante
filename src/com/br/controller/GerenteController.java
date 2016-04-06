@@ -28,12 +28,12 @@ public class GerenteController extends FuncionarioController implements UsuarioC
 	
 	//Manter Cardapio
 	public void cadastrarCardapio(Cardapio c, Categoria categoria) {
-		EntityManager eM = AbstractController.factory.createEntityManager();
+		EntityManager eM = factory.createEntityManager();
 		CardapioDao cDao = new CardapioDao(eM);
-
 		try {
 			c.setCategoria(categoria);
-			cDao.save(c);
+			System.out.println(c.toString());
+			cDao.update(c);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();
 		}catch (Exception e) {
@@ -62,9 +62,6 @@ public class GerenteController extends FuncionarioController implements UsuarioC
 			eM.getTransaction().commit();
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
-		}
-		finally {
-			eM.close();
 		}
 	}
 	
@@ -143,12 +140,15 @@ public class GerenteController extends FuncionarioController implements UsuarioC
 	public Categoria consultarCategoria(Long id) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		CategoriaDao cDao = new CategoriaDao(eM);
-		Categoria c = null;
+		Categoria c = new Categoria();
 		
 		try {
 			c = cDao.getById(id);
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
+		}
+		finally {
+			eM.close();
 		}
 		
 		return c;

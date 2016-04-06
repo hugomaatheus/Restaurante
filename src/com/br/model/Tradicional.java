@@ -19,11 +19,24 @@ public class Tradicional extends Pedido {
 	
 	
 	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="fk_funcionario")
+	private Funcionario vendedor;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="mesa_id")
 	private Mesa mesa;
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
+
+	
+	public Funcionario getVendedor() {
+		return vendedor;
+	}
+
+	public void setVendedor(Funcionario vendedor) {
+		this.vendedor = vendedor;
+	}
 
 	public Status getStatus() {
 		return status;

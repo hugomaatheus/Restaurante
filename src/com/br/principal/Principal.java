@@ -2,11 +2,15 @@ package com.br.principal;
 
 import java.io.IOException;
 
+import com.br.controller.ClienteController;
+import com.br.controller.FuncionarioController;
 import com.br.controller.GerenteController;
-import com.br.model.Endereco;
-import com.br.model.Funcionario;
-import com.br.model.Mesa;
-import com.br.model.Reserva;
+import com.br.model.Cardapio;
+import com.br.model.Categoria;
+import com.br.model.Cliente;
+import com.br.model.Delivery;
+import com.br.model.ItemPedido;
+import com.br.model.Pedido;
 
 
 
@@ -21,6 +25,9 @@ public class Principal {
 //		Cliente c = new Cliente();
 //		Endereco e = new Endereco();
 //		Delivery d = new Delivery();
+//		Cardapio cardapio = new Cardapio();
+//		Pedido pedido = new Pedido();
+//		ItemPedido i = new ItemPedido();
 //		e.setRua("Duque de Caxias");
 //		e.setBairro("Centro");
 //		e.setComplemento("nenhum");
@@ -28,17 +35,23 @@ public class Principal {
 //		e.setNumero("27");
 //		c.setNome("Hugo");
 //		c.setLogin("hugomatheus");
-//		c.setEmail("hugomatheus650@gmail.com");
+//		c.setEmail("hugo_matheus11@hotmail.com");
 //		c.setSenha("1234");
 //		c.setStatus(Status.ATIVO);
 //		c.setEndereco(e);
-//		d.setCliente(c);
+//		i.setQtd(3);
+//		i.setCardapio(cardapio);
+//		i.setPedido(pedido);
 //		d.setTrocoPara(20.00);
+//		c = cC.buscarUsuario(1L);
 //		cC.cadastrarPedido(d);
 //		cC.cadastrarUsuario(c);
+//		cC.desativarUsuario(2L);
+//		cC.cadastrarPedido(d, c, i);
 		
 		//Testando FuncionarioController		
 //		FuncionarioController fC = new FuncionarioController();
+//		GerenteController gC = new GerenteController();
 //		Reserva r = new Reserva();
 //		Funcionario f = new Funcionario();
 //		Endereco e = new Endereco();
@@ -99,9 +112,16 @@ public class Principal {
 		
 		
 		//Testando GerenteController
-//		GerenteController gC = new GerenteController();
-//		Cardapio c = new Cardapio();
+		GerenteController gC = new GerenteController();
+		Cardapio c = new Cardapio();
+		Categoria categoria = new Categoria(); 
+		categoria = gC.consultarCategoria(1L);
+		c.setNome("Coca");
+		c.setPreco(6.00);
+//		System.out.println(c.toString());
+		gC.cadastrarCardapio(c, categoria);
 //		Categoria categoria = new Categoria();
+//		categoria.setNome("Bebidas");
 //		Mesa mesa = new Mesa();
 //		Reserva r = new Reserva();
 //		Funcionario f = new Funcionario();

@@ -3,8 +3,6 @@ package com.br.controller;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
@@ -13,12 +11,16 @@ import com.br.dao.ClienteDao;
 import com.br.dao.DeliveryDao;
 import com.br.model.Cliente;
 import com.br.model.Delivery;
+import com.br.model.ItemPedido;
 import com.br.util.Status;
 
 
-public class ClienteController implements UsuarioController<Cliente>{
+public class ClienteController extends AbstractController implements UsuarioController<Cliente>{
 
 	
+	private Collection<Delivery> d;
+
+
 	//Manter cliente
 	@Override
 	public void cadastrarUsuario(Cliente cliente) {
@@ -119,21 +121,25 @@ public class ClienteController implements UsuarioController<Cliente>{
 	}
 	
 	
-	public void cadastrarPedido(Delivery delivery) {
+	public void cadastrarPedido(Delivery delivery, Cliente cliente, ItemPedido i) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		Calendar c = Calendar.getInstance();
 		Date data = c.getTime();
-		Cliente cliente = new Cliente();
 		
 		try {
 			DeliveryDao deliveryDao = new DeliveryDao(eM);
 			ClienteDao cDao = new ClienteDao(eM);
-			Collection<Delivery> d = null;
+			d = null;
 			
 			delivery.setStatus(Status.ANDAMENTO);
+			delivery.setCliente(cliente);
 			delivery.setData(data);
-			d.add(delivery);
+			
+			for (Delivery delivery2 : d) {
+				d.add(delivery);
+			}
+			
 			cliente.setDeliverys(d);
 			deliveryDao.save(delivery);
 			cDao.update(cliente);
