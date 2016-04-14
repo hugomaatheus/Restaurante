@@ -3,6 +3,7 @@ package com.br.model;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -33,18 +34,24 @@ public class Mesa extends AbstractEntity {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="mesa_PedTradicional", joinColumns=@JoinColumn(name="mesa_id"),
-	inverseJoinColumns=@JoinColumn(name="tradicional_id"))
+	inverseJoinColumns=@JoinColumn(name="tradicional"))
 	private Collection<Tradicional> tradicionais;
 	
-	@OneToMany
-	@JoinTable(name="mesa_Reserva", joinColumns=@JoinColumn(name="mesa_id"),
-	inverseJoinColumns=@JoinColumn(name="reserva_id"))
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="mesa_Reserva",joinColumns=@JoinColumn(name="mesa_id"),
+	inverseJoinColumns=@JoinColumn(name="reserva"))
 	private Collection<Reserva> reservas;
 	
+	public Mesa(int numero, int capacidade) {
+		super();
+		this.numero = numero;
+		this.capacidade = capacidade;
+	}
 	
-	
+	public Mesa() {}
+
 	public Status getStatus() {
 		return status;
 	}

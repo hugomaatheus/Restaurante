@@ -1,7 +1,10 @@
 package com.br.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
@@ -9,6 +12,7 @@ import javax.swing.JOptionPane;
 import com.br.dao.CardapioDao;
 import com.br.dao.DeliveryDao;
 import com.br.dao.FuncionarioDao;
+import com.br.dao.ItemPedidoDao;
 import com.br.dao.PedidoDao;
 import com.br.dao.ReservaDao;
 import com.br.dao.TradicionalDao;
@@ -25,29 +29,32 @@ import com.br.util.Status;
 public class FuncionarioController extends AbstractController implements UsuarioController <Funcionario> {
 	
 	
-	//Manter Reserva
+	
+	//Manter Reserva - OK
 	public void cadastrarReserva(Reserva reserva, Funcionario f) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		Calendar c = Calendar.getInstance();
 		Date data = c.getTime();
-
+		ReservaDao reservaDao = new ReservaDao(eM);
+		
 		try {
-			ReservaDao reservaDao = new ReservaDao(eM);
 			reserva.setStatus(Status.ATIVO);
 			reserva.setDataInicial(data);
 			reserva.setFuncionario(f);
-			reservaDao.save(reserva);
+			reservaDao.update(reserva);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();
 		}catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
 			eM.getTransaction().rollback();
 		}
 		finally {
 			eM.close();
 		}
 	}
-
+	
+	//OK
 	public Reserva buscarReserva(Long id) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
@@ -62,6 +69,7 @@ public class FuncionarioController extends AbstractController implements Usuario
 		return r;
 	}
 	
+	//OK
 	public void atualizarReserva(Reserva reserva) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
@@ -79,6 +87,7 @@ public class FuncionarioController extends AbstractController implements Usuario
 		}
 	}
 	
+	//OK
 	public void cancelarReserva(Long id) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
@@ -111,14 +120,14 @@ public class FuncionarioController extends AbstractController implements Usuario
 	
 	
 	//Manter Pedido Tradicional
-	//Buscar mesa do pedido tradicional
+	//Buscar mesa do pedido tradicional OK
 	public Mesa buscarMesaTradicional(Long id) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		Mesa m = null;
 		try {
 			TradicionalDao tradicionalDao = new TradicionalDao(eM);
-			Tradicional t = (Tradicional) tradicionalDao.getById(id);
+			Tradicional t =  (Tradicional) tradicionalDao.getById(id);
 			m = t.getMesa();
 		}catch (Exception e) {
 			eM.getTransaction().rollback();
@@ -127,14 +136,20 @@ public class FuncionarioController extends AbstractController implements Usuario
 		return m;
 	}
 	
-	public void cadastrarPedidoTradicional(Tradicional tradicional, 
-			Pedido pedido, ItemPedido i, Mesa m, Funcionario f, Cardapio cardapio) {
+	//Problema com tabelas que estão mapeando as listas
+	public void cadastrarPedidoTradicional(Mesa m, Funcionario f) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		TradicionalDao tradicionalDao = new TradicionalDao(eM);
 		PedidoDao pDao = new PedidoDao(eM);
+		CardapioDao cDao = new CardapioDao(eM);
+		ItemPedidoDao iDao = new ItemPedidoDao(eM);
+		
 		Calendar c = Calendar.getInstance();
 		Date data = c.getTime();
+		
+		Collection<ItemPedido> itens = new ArrayList<>();
+		Cardapio cardapio = new Cardapio();
 
 		try {
 			
@@ -143,15 +158,32 @@ public class FuncionarioController extends AbstractController implements Usuario
 				throw new Exception("Número de pessoas na mesa excede a capacidade da mesa!");
 
 			else {
-				tradicional.setData(data);
+				
+				
+				cardapio = cDao.getById(2L);
+				
 				m.setStatus(Status.OCUPADA);
-				tradicional.setMesa(m);
-				tradicional.setVendedor(f);
-				pedido.setData(data);
-				i.setPedido(pedido);
+				
+				Tradicional t = new Tradicional(Status.ANDAMENTO, itens, f, m);
+				t.setData(data);
+				
+				
+				Pedido p = new Pedido();
+				ItemPedido i = new ItemPedido(2, cardapio);
+				p.setData(data);
+				p.setStatus(Status.ANDAMENTO);
+				i.setPedido(p);
 				i.setCardapio(cardapio);
-				pDao.update(pedido);
-				tradicionalDao.update(tradicional);
+				
+				for (Iterator<ItemPedido> iterator = itens.iterator(); iterator.hasNext();) {
+					itens.add(i);
+				}
+				
+				p.setItens(itens);
+				
+				iDao.update(i);
+				pDao.update(p);
+				tradicionalDao.update(t);
 				eM.getTransaction().begin();
 				eM.getTransaction().commit();
 			}
@@ -166,27 +198,28 @@ public class FuncionarioController extends AbstractController implements Usuario
 		}
 	}
 	
-	//Buscar pedido tradicional
-	public Tradicional buscarPedidoTradicional(Long id) {
+	//Buscar pedido tradicional - OK
+	public Pedido buscarPedidoTradicional(Long id) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		TradicionalDao tDao = new TradicionalDao(eM);
-		Tradicional t = null;
+		Pedido t = null;
 		
 		try {
-			t = (Tradicional) tDao.getById(id);
+			t =  tDao.getById(id);
 		}catch (Exception e) {
+			System.out.println(e.getMessage());
 			eM.getTransaction().rollback();
 		}
 		
 		return t;
 	}
 	
-	
+	//OK
 	public void cancelarPedidoTradicional(Long id) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		TradicionalDao tDao = new TradicionalDao(eM);
-		Tradicional tradicional = (Tradicional) tDao.getById(id);
+		Pedido tradicional = (Tradicional) tDao.getById(id);
 		
 		try {
 			if(tradicional.getStatus() == Status.ATIVO || tradicional.getStatus() == null)
@@ -224,7 +257,7 @@ public class FuncionarioController extends AbstractController implements Usuario
 	}
 	
 	
-	//Manter Funcionario
+	//Manter Funcionario - OK
 	@Override
 	public void cadastrarUsuario(Funcionario f) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
@@ -250,7 +283,7 @@ public class FuncionarioController extends AbstractController implements Usuario
 		//Apenas o gerente!
 	}
 	
-	
+	//OK
 	@Override
 	public void atualizarUsuario(Funcionario f) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
@@ -268,7 +301,8 @@ public class FuncionarioController extends AbstractController implements Usuario
 		}
 		
 	}
-
+	
+	//OK
 	@Override
 	public Funcionario buscarUsuario(Long id) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
@@ -284,7 +318,7 @@ public class FuncionarioController extends AbstractController implements Usuario
 		return f;
 	}
 	///////////////////////////////////////////
-	
+	//OK
 	public Cardapio buscarCardapio(Long id) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		CardapioDao cDao = new CardapioDao(eM);

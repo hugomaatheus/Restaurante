@@ -1,14 +1,18 @@
 package com.br.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
 
+import com.br.dao.CardapioDao;
 import com.br.dao.ClienteDao;
 import com.br.dao.DeliveryDao;
+import com.br.model.Cardapio;
 import com.br.model.Cliente;
 import com.br.model.Delivery;
 import com.br.model.ItemPedido;
@@ -18,16 +22,17 @@ import com.br.util.Status;
 public class ClienteController extends AbstractController implements UsuarioController<Cliente>{
 
 	
-	private Collection<Delivery> d;
+	private Cardapio cardapio;
 
 
-	//Manter cliente
+	//Manter cliente - OK
 	@Override
 	public void cadastrarUsuario(Cliente cliente) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
 		ClienteDao clienteDao = new ClienteDao(eM);
 		
 		try {	
+			cliente.setStatus(Status.ATIVO);
 			clienteDao.save(cliente);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();
@@ -40,6 +45,7 @@ public class ClienteController extends AbstractController implements UsuarioCont
 		
 	}
 
+	//OK
 	@Override
 	public void desativarUsuario(Long id) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
@@ -68,7 +74,8 @@ public class ClienteController extends AbstractController implements UsuarioCont
 		}
 		
 	}
-
+	
+	//OK
 	@Override
 	public void atualizarUsuario(Cliente cliente) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
@@ -86,7 +93,8 @@ public class ClienteController extends AbstractController implements UsuarioCont
 		}
 		
 	}
-
+	
+	//OK
 	@Override
 	public Cliente buscarUsuario(Long id) {
 		EntityManager eM = AbstractController.factory.createEntityManager();
@@ -104,7 +112,7 @@ public class ClienteController extends AbstractController implements UsuarioCont
 	//////////////////////////////////////////
 	
 	
-	//Manter pedido
+	//Manter pedido - OK
 	public Delivery buscarPedidoDelivery(Long id) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
@@ -120,27 +128,38 @@ public class ClienteController extends AbstractController implements UsuarioCont
 		return d;	
 	}
 	
-	
-	public void cadastrarPedido(Delivery delivery, Cliente cliente, ItemPedido i) {
+	//Faz pedido, porém problema com tabela do relacionamento
+	public void cadastrarPedidoDelivery(Cliente cliente) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
+		DeliveryDao deliveryDao = new DeliveryDao(eM);
+		ClienteDao cDao = new ClienteDao(eM);
+		CardapioDao cardapioDao = new CardapioDao(eM);
 		Calendar c = Calendar.getInstance();
 		Date data = c.getTime();
+		cardapio = new Cardapio();
+		Collection<Delivery> deliverys = new ArrayList<>();
+		Collection<ItemPedido> itens = new ArrayList<>();
 		
 		try {
-			DeliveryDao deliveryDao = new DeliveryDao(eM);
-			ClienteDao cDao = new ClienteDao(eM);
-			d = null;
 			
+			cardapio = cardapioDao.getById(2L);
+			Delivery delivery = new Delivery(50.00, cliente);			
 			delivery.setStatus(Status.ANDAMENTO);
-			delivery.setCliente(cliente);
 			delivery.setData(data);
 			
-			for (Delivery delivery2 : d) {
-				d.add(delivery);
+			for (Iterator<Delivery> iterator = deliverys.iterator(); iterator.hasNext();) {
+				deliverys.add(delivery);
 			}
 			
-			cliente.setDeliverys(d);
+			ItemPedido i = new ItemPedido(2, cardapio);
+			
+			for (Iterator<ItemPedido> iterator = itens.iterator(); iterator.hasNext();) {
+				itens.add(i);
+			}
+			
+			cliente.setDeliverys(deliverys);
+			delivery.setItens(itens);
 			deliveryDao.save(delivery);
 			cDao.update(cliente);
 			eM.getTransaction().begin();		

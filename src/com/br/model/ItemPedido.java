@@ -9,14 +9,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
-@SequenceGenerator(name="itemPedido_id", sequenceName="itemPedido_seq")
+@Table(name="itempedido")
+@SequenceGenerator(name="itemPedido_id", sequenceName="itemPedido_seq", allocationSize=1)
 @NamedQuery(name="findAllItens", query="SELECT i FROM ItemPedido i")
 public class ItemPedido extends AbstractEntity {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
 	
 	private int qtd;
@@ -28,6 +30,14 @@ public class ItemPedido extends AbstractEntity {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_cardapio")
 	private Cardapio cardapio;
+	
+	public ItemPedido(int qtd, Cardapio cardapio) {
+		super();
+		this.qtd = qtd;
+		this.cardapio = cardapio;
+	}
+	
+	public ItemPedido() {}
 
 	public Cardapio getCardapio() {
 		return cardapio;
@@ -61,6 +71,10 @@ public class ItemPedido extends AbstractEntity {
 		this.pedido = pedido;
 	}
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("%s\n %s\n", getId(), getCardapio());
+	}
 
 }

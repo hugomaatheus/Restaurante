@@ -3,6 +3,7 @@ package com.br.model;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -25,9 +26,9 @@ public class Cliente extends Usuario {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="cliente_delivery", joinColumns=@JoinColumn(name="cliente_id"),
-	inverseJoinColumns=@JoinColumn(name="delivery_id"))
+	inverseJoinColumns=@JoinColumn(name="pedido_id"))
 	private Collection<Delivery> delivery;
 	
 	private String login;
@@ -41,6 +42,17 @@ public class Cliente extends Usuario {
 	@Embedded
 	private Endereco endereco;
 
+	public Cliente(String login, String senha, String email, String nome, 
+			Endereco endereco) {
+		super();
+		this.login = login;
+		this.senha = senha;
+		this.email = email;
+		this.nome = nome;
+		this.endereco = endereco;
+	}
+	
+	public Cliente() {}
 
 	public Endereco getEndereco() {
 		return endereco;

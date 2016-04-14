@@ -1,22 +1,22 @@
 package com.br.model;
 
+import java.util.Collection;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import com.br.util.Status;
 
 @Entity
-@SequenceGenerator(name="tradicional_id", sequenceName="tradicional_seq")
+//@SequenceGenerator(name="tradicional_id", sequenceName="tradicional_seq")
+@Table(name="tradicional")
 @PrimaryKeyJoinColumn(name="pedido_id")
 public class Tradicional extends Pedido {
-	
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_funcionario")
@@ -26,24 +26,21 @@ public class Tradicional extends Pedido {
 	@JoinColumn(name="mesa_id")
 	private Mesa mesa;
 	
-	@Enumerated(EnumType.STRING)
-	private Status status;
-
 	
+	public Tradicional(Status status, Collection<ItemPedido> itens, Funcionario vendedor, Mesa mesa) {
+		super();
+		this.vendedor = vendedor;
+		this.mesa = mesa;
+	}
+	
+	public Tradicional() {}
+
 	public Funcionario getVendedor() {
 		return vendedor;
 	}
 
 	public void setVendedor(Funcionario vendedor) {
 		this.vendedor = vendedor;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
 	}
 
 	public Mesa getMesa() {

@@ -12,19 +12,25 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.br.util.Status;
 
 @Entity
 @SequenceGenerator(name="reserva_id", sequenceName="reserva_seq")
+@Table(name="reserva")
 public class Reserva extends AbstractEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInicial;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFinal;
 	
 	private int num_pessoa;
@@ -38,6 +44,13 @@ public class Reserva extends AbstractEntity {
 	@JoinColumn(name="fk_funcionario")
 	private Funcionario funcionario;
 	
+	public Reserva(int num_pessoa, String nome_Responsavel) {
+		super();
+		this.num_pessoa = num_pessoa;
+		this.nome_Responsavel = nome_Responsavel;
+	}
+	
+	public Reserva() {}
 	
 	public Status getStatus() {
 		return status;

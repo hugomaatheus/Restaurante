@@ -2,15 +2,8 @@ package com.br.principal;
 
 import java.io.IOException;
 
-import com.br.controller.ClienteController;
 import com.br.controller.FuncionarioController;
-import com.br.controller.GerenteController;
 import com.br.model.Cardapio;
-import com.br.model.Categoria;
-import com.br.model.Cliente;
-import com.br.model.Delivery;
-import com.br.model.ItemPedido;
-import com.br.model.Pedido;
 
 
 
@@ -22,150 +15,77 @@ public class Principal {
 		
 		//Testando cliente
 //		ClienteController cC = new ClienteController();
-//		Cliente c = new Cliente();
-//		Endereco e = new Endereco();
-//		Delivery d = new Delivery();
-//		Cardapio cardapio = new Cardapio();
-//		Pedido pedido = new Pedido();
-//		ItemPedido i = new ItemPedido();
-//		e.setRua("Duque de Caxias");
-//		e.setBairro("Centro");
-//		e.setComplemento("nenhum");
-//		e.setTelefone("24332523");
-//		e.setNumero("27");
-//		c.setNome("Hugo");
-//		c.setLogin("hugomatheus");
-//		c.setEmail("hugo_matheus11@hotmail.com");
-//		c.setSenha("1234");
-//		c.setStatus(Status.ATIVO);
-//		c.setEndereco(e);
-//		i.setQtd(3);
-//		i.setCardapio(cardapio);
-//		i.setPedido(pedido);
-//		d.setTrocoPara(20.00);
-//		c = cC.buscarUsuario(1L);
-//		cC.cadastrarPedido(d);
-//		cC.cadastrarUsuario(c);
-//		cC.desativarUsuario(2L);
-//		cC.cadastrarPedido(d, c, i);
+//		Endereco endereco = new Endereco("Moises Coelho", "Torre", "365", "Centro", "324234");
+//		Cliente cliente = new Cliente("hugomaatheus123", "1234", "hugo@gmail.com", "Hugo Matheus Freire de Lima", endereco);
+//		Cliente cliente = new Cliente();
+//		Pedido d = new Delivery();
+//		cliente = cC.buscarUsuario(3L); OK
+//		cliente.setLogin("hugo_maatheus");
+//		cC.atualizarUsuario(cliente); - OK
+//		cC.cadastrarUsuario(cliente); - OK
+//		cC.desativarUsuario(2L); - OK
+//		cC.cadastrarPedidoDelivery(cliente);
+//		d = cC.buscarPedidoDelivery(28L); OK
+//		System.out.println(d.toString());
 		
 		//Testando FuncionarioController		
-//		FuncionarioController fC = new FuncionarioController();
+		FuncionarioController fC = new FuncionarioController();
 //		GerenteController gC = new GerenteController();
-//		Reserva r = new Reserva();
+		Cardapio c = new Cardapio();
 //		Funcionario f = new Funcionario();
-//		Endereco e = new Endereco();
+//		f = fC.buscarUsuario(7L);
+//		f.setNome("Matheus");
+//		Endereco e = new Endereco("Duque de Caxias", "Bessa", "27", "Centro", "213213");
+//		Funcionario f = new Funcionario(800.00, "4234234", "Segurança", "Eriberto",
+//				"hsdasjdas", "12323", e);
+//		Pedido t = new Tradicional();
+//		f = fC.buscarUsuario(1L);
 //		Mesa m = new Mesa();
-//		Tradicional t = new Tradicional();
-//		ItemPedido i = new ItemPedido();
-//		Cardapio c = new Cardapio();
-//		Pedido p = new Pedido();
-//		
-//		f.setNome("Matheus Freire");
-//		f.setStatus(Status.ATIVO);
-//		f.setCargo("Atendente");
-//		f.setCpf("3529842");
-//		r.setNum_pessoa(4);
-//		r.setNome_Responsavel("Hugo Matheus");
-//		fC.cadastrarReserva(r, f);
-//		r = fC.buscarReserva(2L);
-//		r.setNome_Responsavel("Matheus");
-//		fC.atualizarReserva(r);
-//		fC.cancelarReserva(r.getId());
-//		System.out.println(r);
-//		c = fC.buscarCardapio(1L);
-//		System.out.println(c.toString());
-//		f = fC.buscarUsuario(2L);
-//		Collection<ItemPedido> itens = new ArrayList<>();
-//		p.setStatus(Status.PENDENTE);
-//		p.setVendedor(f);
-//		i.setQtd(2);
-//		i.setPedido(p);
-//		i.setCardapio(c);
-//		itens.add(i);
-//		p.setItens(itens);
-//		t.setStatus(Status.ATIVO);
-//		Collection<Tradicional> tradicionais = new ArrayList<>();
-//		tradicionais.add(t);
-//		m.setCapacidade(4);
-//		m.setNumero(3);
-//		m.setTradicionais(tradicionais);
-//		t.setMesa(m);
-//		fC.cadastrarPedidoTradicional(t, p, i, m, f, c);
-//		t = fC.buscarPedidoTradicional(4L);
-//		fC.cancelarPedidoTradicional(t.getId());
-//		e.setNumero("28");
-//		e.setBairro("agua fria");
-//		e.setComplemento("centro");
-//		e.setRua("DSHDS");
-//		e.setTelefone("1213243");
-//		f.setNome("Neto");
-//		f.setCpf("3424234");
-//		f.setEmail("hfgidfgdfjg");
-//		f.setLogin("sfsdfsfs");
-//		f.setSenha("123");
-//		f = fC.buscarUsuario(4L);
-//		f.setEndereco(e);
-//		f.setSalario(800.00);
-//		fC.cadastrarUsuario(f);
-//		fC.atualizarUsuario(f);
+//		m = gC.buscarMesa(1L);
+//		Reserva r = new Reserva(3, f.getNome());
+//		Reserva r = new Reserva();
+//		r = fC.buscarReserva(1L);
+//		r.setStatus(Status.CANCELADO);
+//		fC.cadastrarReserva(r, f); OK
+//		r = fC.buscarReserva(1L); OK
+//		fC.atualizarReserva(r); OK
+//		fC.cancelarReserva(2L);
+//		System.out.println(r.toString());
+//		fC.cadastrarPedidoTradicional(m, f);
+//		m = fC.buscarMesaTradicional(24L); OK
+//		System.out.println(m.toString());
+//		t = fC.buscarPedidoTradicional(27L); OK
+//		System.out.println(t.toString());
+//		fC.cancelarPedidoTradicional(27L); - OK
+//		fC.cadastrarUsuario(f); - OK
+//		fC.atualizarUsuario(f); - OK
+		c = fC.buscarCardapio(2L);
+		System.out.println(c.toString());
 		
 		
 		//Testando GerenteController
-		GerenteController gC = new GerenteController();
-		Cardapio c = new Cardapio();
-		Categoria categoria = new Categoria(); 
-		categoria = gC.consultarCategoria(1L);
-		c.setNome("Coca");
-		c.setPreco(6.00);
-//		System.out.println(c.toString());
-		gC.cadastrarCardapio(c, categoria);
-//		Categoria categoria = new Categoria();
-//		categoria.setNome("Bebidas");
-//		Mesa mesa = new Mesa();
-//		Reserva r = new Reserva();
+//		GerenteController gC = new GerenteController();
+//		Endereco e = new Endereco("Duque de Caxias", "Torre", "27", "Centro", "213213");
+//		Funcionario f = new Funcionario(800.00, "4234234", "Cozinheiro", "Eriberto",
+//				"hsdasjdas", "12323", e);
 //		Funcionario f = new Funcionario();
-//		Endereco e = new Endereco();
-//		c = gC.buscarCardapio(1L);
-//		categoria = gC.consultarCategoria(2L);
-//		categoria.setNome("Cerveja");
-//		c.setNome("Logan 12 anos");
-//		c.setCategoria(categoria);
-//		c.setPreco(120.00);
-//		f = gC.buscarUsuario(2L);
-//		r.setFuncionario(f);
-//		r.setNum_pessoa(1);
-//		mesa.setCapacidade(4);
-//		mesa.setNumero(r.getNum_pessoa());
-//		gC.cadastrarMesa(f, r, mesa);
-//		gC.excluirMesa(2L);
-//		e.setBairro("sdfsdf");
-//		e.setComplemento("dscsd");
-//		e.setNumero("90A");
-//		e.setRua("khjhk");
-//		e.setTelefone("6758");
-//		f.setCargo("Cozinheiro");
-//		f.setCpf("423432");
-//		f = gC.buscarUsuario(6L);
-//		f.setEmail("abc");
-//		f.setLogin("123abc");
-//		gC.atualizarUsuario(f);
-//		f.setNome("dshfkjs");
-//		f.setSalario(900.00);
-//		f.setEndereco(e);
-//		gC.cadastrarUsuario(f);
-//		gC.excluirUsuario(2L);
-//		gC.cadastrarCardapio(c, categoria);
-//		gC.consultarCardapio();
-//		gC.atualizarCardapio(c);
-//		gC.cadastrarCategoria(categoria);
-//		gC.excluirCardapio(1L);
-//		gC.atualizarCategoria(categoria);
-//		gC.excluirCategoria(2L);
-//		categoria = gC.consultarCategoria(2L);
-//		System.out.println(categoria);
-		
-		
+//		f = gC.buscarUsuario(1L); OK
+//		f.setNome("Matheus");
+//		Reserva r = new Reserva(3, f.getNome());
+//		Mesa m = new Mesa(1, 5);
+//		Mesa m = new Mesa();
+//		m = gC.buscarMesa(2L);
+//		m.setStatus(Status.LIVRE);
+//		System.out.println(m.toString());
+//		Cardapio c = new Cardapio();
+//		c = gC.buscarCardapio(2L); OK
+//		gC.cadastrarMesaReserva(f, r, m, c); OK
+//		gC.cadastrarUsuario(f); OK
+//		gC.atualizarUsuario(f); OK
+//		gC.atualizarMesa(m); OK
+//		gC.excluirMesa(6L); OK
+//		gC.excluirUsuario(4L);
+	
 		
 	}
 }

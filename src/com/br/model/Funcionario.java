@@ -22,7 +22,23 @@ public class Funcionario extends Usuario {
 	private String login;
 	private String senha;
 	private Endereco endereco;
+
+	public Funcionario(double salario, String cpf, String cargo, String nome, String login, String senha,
+			Endereco endereco) {
+		super();
+		this.salario = salario;
+		this.cpf = cpf;
+		this.cargo = cargo;
+		this.nome = nome;
+		this.login = login;
+		this.senha = senha;
+		this.endereco = endereco;
+	}
 	
+	public Funcionario() {
+		
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -2,7 +2,6 @@ package com.br.model;
 
 import java.util.Date;
 import java.util.Collection;
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,7 +14,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
@@ -32,7 +30,7 @@ public class Pedido extends AbstractEntity {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
 	
 	@Enumerated(EnumType.STRING)
@@ -42,6 +40,8 @@ public class Pedido extends AbstractEntity {
 	@JoinTable(name="pedido_itemCardapio", joinColumns=@JoinColumn(name="pedido_id"),
 	inverseJoinColumns=@JoinColumn(name="itemCardapio_id"))
 	private Collection<ItemPedido> itens;
+	
+	public Pedido() {}
 
 	public Long getId() {
 		return id;
@@ -75,5 +75,10 @@ public class Pedido extends AbstractEntity {
 		this.itens = itens;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("%s", getId());
+	}
 	
 }

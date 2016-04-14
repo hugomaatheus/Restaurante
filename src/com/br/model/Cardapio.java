@@ -28,6 +28,17 @@ public class Cardapio extends AbstractEntity {
 	@JoinColumn(name="fk_categoria")
 	private Categoria categoria;
 
+	public Cardapio(String nome, double preco, Categoria categoria) {
+		super();
+		this.nome = nome;
+		this.preco = preco;
+		this.categoria = categoria;
+	}
+	
+	public Cardapio() {
+		
+	}
+
 	public Categoria getCategoria() {
 		return categoria;
 	}

@@ -15,6 +15,17 @@ public class Endereco {
 	private String complemento;
 	
 	private String telefone;
+	
+	public Endereco(String rua, String bairro, String numero, String complemento, String telefone) {
+		super();
+		this.rua = rua;
+		this.bairro = bairro;
+		this.numero = numero;
+		this.complemento = complemento;
+		this.telefone = telefone;
+	}
+	
+	public Endereco() {}
 
 	public String getRua() {
 		return rua;

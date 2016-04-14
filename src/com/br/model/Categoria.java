@@ -14,6 +14,13 @@ public class Categoria extends AbstractEntity {
 	private Long id;
 	
 	private String nome;
+	
+	public Categoria(String nome) {
+		super();
+		this.nome = nome;
+	}
+	
+	public Categoria() {}
 
 	public Long getId() {
 		return id;
