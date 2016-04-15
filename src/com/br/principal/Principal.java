@@ -3,7 +3,9 @@ package com.br.principal;
 import java.io.IOException;
 
 import com.br.controller.FuncionarioController;
-import com.br.model.Cardapio;
+import com.br.controller.GerenteController;
+import com.br.model.Funcionario;
+import com.br.model.Mesa;
 
 
 
@@ -29,9 +31,9 @@ public class Principal {
 //		System.out.println(d.toString());
 		
 		//Testando FuncionarioController		
-		FuncionarioController fC = new FuncionarioController();
+//		FuncionarioController fC = new FuncionarioController();
 //		GerenteController gC = new GerenteController();
-		Cardapio c = new Cardapio();
+//		Cardapio c = new Cardapio();
 //		Funcionario f = new Funcionario();
 //		f = fC.buscarUsuario(7L);
 //		f.setNome("Matheus");
@@ -59,8 +61,8 @@ public class Principal {
 //		fC.cancelarPedidoTradicional(27L); - OK
 //		fC.cadastrarUsuario(f); - OK
 //		fC.atualizarUsuario(f); - OK
-		c = fC.buscarCardapio(2L);
-		System.out.println(c.toString());
+//		c = fC.buscarCardapio(2L);
+//		System.out.println(c.toString());
 		
 		
 		//Testando GerenteController
@@ -79,7 +81,7 @@ public class Principal {
 //		System.out.println(m.toString());
 //		Cardapio c = new Cardapio();
 //		c = gC.buscarCardapio(2L); OK
-//		gC.cadastrarMesaReserva(f, r, m, c); OK
+//		gC.cadastrarMesa(f); OK
 //		gC.cadastrarUsuario(f); OK
 //		gC.atualizarUsuario(f); OK
 //		gC.atualizarMesa(m); OK

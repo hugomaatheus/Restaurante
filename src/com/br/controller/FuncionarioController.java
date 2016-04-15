@@ -158,8 +158,6 @@ public class FuncionarioController extends AbstractController implements Usuario
 				throw new Exception("Número de pessoas na mesa excede a capacidade da mesa!");
 
 			else {
-				
-				
 				cardapio = cDao.getById(2L);
 				
 				m.setStatus(Status.OCUPADA);
@@ -176,12 +174,14 @@ public class FuncionarioController extends AbstractController implements Usuario
 				i.setCardapio(cardapio);
 				
 				for (Iterator<ItemPedido> iterator = itens.iterator(); iterator.hasNext();) {
-					itens.add(i);
+					if(!(i.getId() == null)) {
+						itens.add(i);
+					}
 				}
 				
 				p.setItens(itens);
 				
-				iDao.update(i);
+				iDao.save(i);
 				pDao.update(p);
 				tradicionalDao.update(t);
 				eM.getTransaction().begin();

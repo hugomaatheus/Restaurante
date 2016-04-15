@@ -170,26 +170,15 @@ public class GerenteController extends FuncionarioController implements UsuarioC
 	
 	
 	//OK
-	public void cadastrarMesaReserva(Funcionario f, Reserva r, Mesa m, 
-			Cardapio cardapio) {
+	public void cadastrarMesa(Funcionario f) {
 		
 		EntityManager eM = AbstractController.factory.createEntityManager();
-		Calendar c = Calendar.getInstance();
-		Date data = c.getTime();
-		ReservaDao rDao = new ReservaDao(eM);
 		MesaDao mDao = new MesaDao(eM);
+		Mesa mesa = new Mesa(3, 4);
 				
 		try {			
-			r.setDataInicial(data);
-			r.setNome_Responsavel(f.getNome());
-			r.setFuncionario(f);
-			r.setStatus(Status.ATIVO);
-			
-			rDao.save(r);
-
-			m.setStatus(Status.OCUPADA);
-			mDao.save(m);
-			
+			mesa.setStatus(Status.LIVRE);
+			mDao.save(mesa);
 			eM.getTransaction().begin();
 			eM.getTransaction().commit();
 		}catch (Exception e) {

@@ -36,12 +36,12 @@ public class Mesa extends AbstractEntity {
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="mesa_PedTradicional", joinColumns=@JoinColumn(name="mesa_id"),
-	inverseJoinColumns=@JoinColumn(name="tradicional"))
+	inverseJoinColumns=@JoinColumn(name="pedido_id", referencedColumnName="pedido_id"))
 	private Collection<Tradicional> tradicionais;
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="mesa_Reserva",joinColumns=@JoinColumn(name="mesa_id"),
-	inverseJoinColumns=@JoinColumn(name="reserva"))
+	inverseJoinColumns=@JoinColumn(name="reserva_id"))
 	private Collection<Reserva> reservas;
 	
 	public Mesa(int numero, int capacidade) {
